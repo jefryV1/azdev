@@ -29,7 +29,33 @@ const Index = () => {
       }
     };
     
+    // Background particles animation
+    const createBackgroundParticles = () => {
+      const particlesContainer = document.createElement('div');
+      particlesContainer.className = 'fixed inset-0 -z-20 overflow-hidden pointer-events-none';
+      document.body.appendChild(particlesContainer);
+      
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle absolute rounded-full';
+        
+        // Random size, position and animation duration
+        const size = Math.random() * 6 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.opacity = `${Math.random() * 0.3}`;
+        particle.style.backgroundColor = `rgba(59, 130, 246, ${Math.random() * 0.2})`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    };
+    
     document.addEventListener('click', handleHashLinkClick);
+    createBackgroundParticles();
     
     return () => {
       document.removeEventListener('click', handleHashLinkClick);
