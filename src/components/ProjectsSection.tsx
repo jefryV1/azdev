@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { 
@@ -8,18 +7,9 @@ import {
   LineChart, 
   Globe, 
   FileText, 
-  PieChart, 
-  ExternalLink 
+  PieChart
 } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { 
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card';
 
 interface ProjectCardProps {
   icon: React.ReactNode;
@@ -42,8 +32,8 @@ const ProjectCard = ({
 }: ProjectCardProps) => {
   return (
     <div className={cn(
-      "staggered-item project-card overflow-hidden rounded-xl",
-      "transition-all duration-300", 
+      "staggered-item project-card overflow-hidden rounded-xl border border-github-border",
+      "transition-all duration-300 bg-github-darker", 
       delay
     )}>
       <div className="image-card">
@@ -54,27 +44,27 @@ const ProjectCard = ({
             className="w-full h-full object-cover"
           />
         </AspectRatio>
-        <div className="image-card-overlay">
-          <div className="text-sm font-medium mb-1 text-blue-300">{category}</div>
+        <div className="image-card-overlay bg-gradient-to-t from-github-darker to-transparent">
+          <div className="text-sm font-medium mb-1 text-github-highlight">{category}</div>
           <h3 className="text-xl font-bold mb-2 text-white">{title}</h3>
           <div className="flex flex-wrap gap-2 mb-4">
             {tech.slice(0, 3).map((item, index) => (
               <span 
                 key={index} 
-                className="text-xs font-medium bg-white/10 text-white/90 px-3 py-1 rounded-full"
+                className="text-xs font-medium bg-github-dark border border-github-border text-white/90 px-3 py-1 rounded-full"
               >
                 {item}
               </span>
             ))}
             {tech.length > 3 && (
-              <span className="text-xs font-medium bg-white/10 text-white/90 px-3 py-1 rounded-full">
+              <span className="text-xs font-medium bg-github-dark border border-github-border text-white/90 px-3 py-1 rounded-full">
                 +{tech.length - 3} more
               </span>
             )}
           </div>
         </div>
       </div>
-      <div className="p-6 bg-github-darker shadow-lg border border-github-border">
+      <div className="p-6 bg-github-darker shadow-lg">
         <div className="mb-4 p-3 inline-block rounded-lg bg-github-accent/10 text-github-accent">
           {icon}
         </div>
@@ -94,51 +84,51 @@ const ProjectCard = ({
 const projects = [
   {
     icon: <Layers className="h-6 w-6" />,
-    category: "Full-Stack Web App",
-    title: "AI Business Analyzer",
-    description: "An intelligent business analytics platform that provides AI-driven insights for financial and operational performance.",
-    tech: ["React", "Node.js", "TypeScript", "Tailwind CSS", "Supabase", "OpenAI"],
+    category: "Data Science & AI",
+    title: "Advanced Data Cleaning and Visualization Tool",
+    description: "An interactive application built with Streamlit to automate data cleaning processes, including handling missing values, outlier detection, and standardization.",
+    tech: ["Streamlit", "Python", "Pandas", "Plotly", "Seaborn", "Data Preprocessing"],
     imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop"
   },
   {
     icon: <Database className="h-6 w-6" />,
-    category: "Full-Stack Web App",
-    title: "Ethical Checker for Social Media",
-    description: "A platform that analyzes the credibility of influencer and brand partnerships through sentiment analysis and AI scoring.",
-    tech: ["React", "Node.js", "TypeScript", "Supabase", "OpenAI", "Tailwind CSS"],
+    category: "Data Science & AI",
+    title: "AI Resume Optimizer",
+    description: "An AI-powered tool using Streamlit and SpaCy for analyzing and optimizing resumes, automating keyword extraction and ATS optimization.",
+    tech: ["Streamlit", "Python", "OpenAI", "SpaCy", "NLP", "Resume Analysis"],
     imageSrc: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=2874&auto=format&fit=crop"
   },
   {
     icon: <LineChart className="h-6 w-6" />,
     category: "Data Science & AI",
-    title: "AI-Powered Market Analysis",
-    description: "A trading assistant that tracks market movements and provides AI-driven entry/exit recommendations.",
-    tech: ["Streamlit", "Python", "Pandas", "ML", "Yahoo Finance API", "SQLite"],
-    imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop"
+    title: "Bike-Sharing Demand Prediction",
+    description: "A machine learning model using TidyModels to forecast hourly bike-sharing demand based on weather conditions and historical patterns.",
+    tech: ["R", "TidyModels", "Python", "ML", "Weather API", "Time Series"],
+    imageSrc: "https://images.unsplash.com/photo-1476990789491-712b869b91a5?q=80&w=2940&auto=format&fit=crop"
   },
   {
     icon: <PieChart className="h-6 w-6" />,
-    category: "Data Science & AI",
-    title: "Data Cleaning & Visualization Tool",
-    description: "An automation tool for data preprocessing with real-time visualization for anomaly detection.",
-    tech: ["Streamlit", "Python", "Pandas", "Plotly", "Seaborn", "SQLite"],
-    imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop"
-  },
-  {
-    icon: <FileText className="h-6 w-6" />,
-    category: "Data Science & AI",
+    category: "Data Automation",
     title: "Job Application Automation Tool",
-    description: "An automated system that scrapes job postings and matches them to resumes using AI technology.",
-    tech: ["Streamlit", "Python", "BeautifulSoup", "OpenAI GPT", "SQLite"],
+    description: "An automated system that scrapes job postings and integrates AI tools like OpenAI GPT-3 for filtering job descriptions and matching candidate profiles.",
+    tech: ["BeautifulSoup", "Python", "OpenAI GPT", "SQLite", "Automation"],
     imageSrc: "https://images.unsplash.com/photo-1586473219010-2ffc57b0d282?q=80&w=2874&auto=format&fit=crop"
   },
   {
-    icon: <Globe className="h-6 w-6" />,
-    category: "Data Science & AI",
+    icon: <FileText className="h-6 w-6" />,
+    category: "Data Visualization",
     title: "Advanced Stock Analysis Dashboard",
-    description: "A real-time financial analytics dashboard with AI-driven predictions and visualization tools.",
-    tech: ["Streamlit", "Python", "Yahoo Finance API", "Power BI", "Pandas"],
+    description: "A real-time financial analytics dashboard built with Streamlit using financial data from Yahoo Finance API, implementing RSI and MACD indicators.",
+    tech: ["Streamlit", "Python", "Yahoo Finance API", "RSI", "MACD", "Financial Analysis"],
     imageSrc: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2940&auto=format&fit=crop"
+  },
+  {
+    icon: <Globe className="h-6 w-6" />,
+    category: "Full-Stack Development",
+    title: "E-Biking Weather Dashboard",
+    description: "An interactive R Shiny dashboard that visualizes real-time demand and weather trends for bike-sharing services, enhancing operational decisions.",
+    tech: ["R Shiny", "Data Wrangling", "Visualization", "Weather API", "Time Series"],
+    imageSrc: "https://images.unsplash.com/photo-1603252109303-2751441dd157?q=80&w=2940&auto=format&fit=crop"
   }
 ];
 
@@ -180,14 +170,12 @@ const ProjectsSection = () => {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="py-20 relative overflow-hidden">
-      {/* Background elements */}
+    <section id="projects" ref={sectionRef} className="py-20 relative overflow-hidden bg-github-dark">
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="fancy-blob w-96 h-96 bottom-0 left-0 bg-github-accent/5"></div>
         <div className="fancy-blob w-80 h-80 top-1/4 right-10 bg-github-highlight/5"></div>
         <div className="fancy-blob w-64 h-64 bottom-1/4 right-1/4 bg-github-accent/5"></div>
         
-        {/* Animated particles */}
         {[...Array(8)].map((_, i) => (
           <div 
             key={i}
@@ -209,7 +197,7 @@ const ProjectsSection = () => {
         <div className="text-center mb-16">
           <h2 className="section-title staggered-item text-gradient">Featured Projects</h2>
           <p className="section-subtitle staggered-item mx-auto">
-            A selection of my recent work combining full-stack development and AI technologies
+            A selection of my recent work combining data science and AI technologies
           </p>
         </div>
         
