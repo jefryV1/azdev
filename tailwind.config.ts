@@ -67,7 +67,7 @@ export default {
 					dark: '#0d1117',
 					darker: '#010409',
 					border: '#30363d',
-					accent: '#2ea043',
+					accent: '#2ea043', // GitHub green
 					highlight: '#388bfd'
 				}
 			},

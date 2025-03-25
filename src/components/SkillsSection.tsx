@@ -57,11 +57,30 @@ const skillsData = [
   }
 ];
 
-const techList = [
-  "React", "Node.js", "TypeScript", "Python", "Supabase", "PostgreSQL", 
-  "OpenAI API", "Tailwind CSS", "Streamlit", "Pandas", "Machine Learning", 
-  "RESTful APIs", "Firebase", "Scikit-learn", "TensorFlow", "Power BI",
-  "Tableau", "Docker", "AWS", "Azure", "CI/CD", "Git", "GitHub Actions"
+// Add logo information for tech slider
+const techSlider = [
+  { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+  { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+  { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "Supabase", logo: "https://seeklogo.com/images/S/supabase-logo-DCC676FFE2-seeklogo.com.png" },
+  { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+  { name: "OpenAI API", logo: "https://seeklogo.com/images/O/openai-logo-8B9BFEDC26-seeklogo.com.png" },
+  { name: "Tailwind CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" },
+  { name: "Streamlit", logo: "https://seeklogo.com/images/S/streamlit-logo-1A3B208AE4-seeklogo.com.png" },
+  { name: "Pandas", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" },
+  { name: "Machine Learning", logo: "https://cdn-icons-png.flaticon.com/512/2103/2103633.png" },
+  { name: "RESTful APIs", logo: "https://cdn-icons-png.flaticon.com/512/10306/10306726.png" },
+  { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
+  { name: "Scikit-learn", logo: "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" },
+  { name: "TensorFlow", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
+  { name: "Power BI", logo: "https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg" },
+  { name: "Tableau", logo: "https://cdn.worldvectorlogo.com/logos/tableau-software.svg" },
+  { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+  { name: "AWS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" },
+  { name: "Azure", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" },
+  { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+  { name: "GitHub Actions", logo: "https://github.githubassets.com/images/modules/site/features/actions-icon-actions.svg" }
 ];
 
 const SkillsSection = () => {
@@ -102,9 +121,9 @@ const SkillsSection = () => {
   }, []);
 
   return (
-    <section id="skills" ref={sectionRef} className="py-20 relative bg-gradient-to-b from-white/0 to-white/40">
+    <section id="skills" ref={sectionRef} className="py-20 relative bg-gradient-to-b from-github-dark to-github-darker">
       <div className="absolute inset-0 overflow-hidden -z-10">
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-blue-100 filter blur-3xl opacity-20" />
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-github-accent/5 filter blur-3xl opacity-20" />
       </div>
       
       <div className="container px-6 mx-auto">
@@ -125,16 +144,17 @@ const SkillsSection = () => {
           ))}
         </div>
         
-        {/* Tech Slider */}
+        {/* Tech Slider with Logos */}
         <div className="staggered-item overflow-hidden mt-16 rounded-lg glass-card p-6">
           <div className="tech-slider flex space-x-8 whitespace-nowrap">
-            {[...techList, ...techList].map((tech, index) => (
-              <span 
+            {[...techSlider, ...techSlider].map((tech, index) => (
+              <div 
                 key={index}
-                className="text-sm md:text-base font-medium px-3 py-1 bg-secondary/50 rounded-full inline-block"
+                className="text-sm md:text-base font-medium px-3 py-1 bg-secondary/50 rounded-full inline-flex items-center space-x-2"
               >
-                {tech}
-              </span>
+                <img src={tech.logo} alt={tech.name} className="w-5 h-5" />
+                <span>{tech.name}</span>
+              </div>
             ))}
           </div>
         </div>

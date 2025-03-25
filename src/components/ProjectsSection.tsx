@@ -74,15 +74,15 @@ const ProjectCard = ({
           </div>
         </div>
       </div>
-      <div className="p-6 bg-white shadow-lg">
-        <div className="mb-4 p-3 inline-block rounded-lg bg-primary/10 text-primary">
+      <div className="p-6 bg-github-darker shadow-lg border border-github-border">
+        <div className="mb-4 p-3 inline-block rounded-lg bg-github-accent/10 text-github-accent">
           {icon}
         </div>
-        <h3 className="text-xl font-bold mb-3">{title}</h3>
+        <h3 className="text-xl font-bold mb-3 text-white">{title}</h3>
         <p className="text-muted-foreground mb-6">{description}</p>
         <a 
           href="#" 
-          className="inline-flex items-center text-sm font-medium text-primary animated-underline"
+          className="inline-flex items-center text-sm font-medium text-github-accent animated-underline"
         >
           View Details <ArrowRightIcon className="ml-1 h-4 w-4" />
         </a>
@@ -183,9 +183,9 @@ const ProjectsSection = () => {
     <section id="projects" ref={sectionRef} className="py-20 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="fancy-blob w-96 h-96 bottom-0 left-0 bg-blue-100"></div>
-        <div className="fancy-blob w-80 h-80 top-1/4 right-10 bg-purple-100"></div>
-        <div className="fancy-blob w-64 h-64 bottom-1/4 right-1/4 bg-green-100"></div>
+        <div className="fancy-blob w-96 h-96 bottom-0 left-0 bg-github-accent/5"></div>
+        <div className="fancy-blob w-80 h-80 top-1/4 right-10 bg-github-highlight/5"></div>
+        <div className="fancy-blob w-64 h-64 bottom-1/4 right-1/4 bg-github-accent/5"></div>
         
         {/* Animated particles */}
         {[...Array(8)].map((_, i) => (
@@ -198,7 +198,8 @@ const ProjectsSection = () => {
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 10}s`,
-              animationDuration: `${Math.random() * 10 + 15}s`
+              animationDuration: `${Math.random() * 10 + 15}s`,
+              backgroundColor: `rgba(46, 160, 67, ${Math.random() * 0.2})` // GitHub green particles
             }}
           ></div>
         ))}

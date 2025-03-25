@@ -81,7 +81,7 @@
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-github-highlight to-github-accent bg-clip-text text-transparent;
   }
   
   .section-title {
@@ -118,7 +118,7 @@
   }
 
   .image-card {
-    @apply relative overflow-hidden rounded-xl shadow-lg transition-all border border-border bg-card;
+    @apply relative overflow-hidden rounded-xl shadow-lg transition-all border border-github-border bg-github-dark;
   }
   
   .image-card img {
@@ -142,12 +142,12 @@
   }
 
   .particle {
-    @apply absolute rounded-full bg-primary/10;
+    @apply absolute rounded-full;
     animation: particleFloat 20s infinite linear;
   }
   
   .github-card {
-    @apply rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/30;
+    @apply rounded-lg border border-github-border bg-github-dark p-6 transition-all hover:border-github-accent/30;
   }
 }
 
@@ -177,7 +177,7 @@ html {
   height: 2px;
   bottom: -2px;
   left: 0;
-  @apply bg-primary;
+  @apply bg-github-accent;
   transition: width 0.3s ease;
 }
 
@@ -191,12 +191,12 @@ html {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
 .tech-slider {
-  animation: slider 20s linear infinite;
+  animation: slider 30s linear infinite;
 }
 
 .tech-slider:hover {
