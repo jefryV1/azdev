@@ -12,6 +12,9 @@ const Index = () => {
   useScrollAnimation();
   
   useEffect(() => {
+    // Set dark theme for the entire site
+    document.documentElement.classList.add('dark');
+    
     // Smooth scroll to section when clicking on hash links
     const handleHashLinkClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -46,7 +49,7 @@ const Index = () => {
         particle.style.top = `${Math.random() * 100}%`;
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.opacity = `${Math.random() * 0.3}`;
-        particle.style.backgroundColor = `rgba(59, 130, 246, ${Math.random() * 0.2})`;
+        particle.style.backgroundColor = `rgba(56, 139, 253, ${Math.random() * 0.2})`;
         particle.style.animationDelay = `${Math.random() * 5}s`;
         particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
         

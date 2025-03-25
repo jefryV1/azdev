@@ -41,19 +41,19 @@ const HeroSection = () => {
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-blue-200 filter blur-3xl opacity-30 moving-gradient"></div>
-        <div className="absolute top-1/2 -left-40 w-96 h-96 rounded-full bg-purple-200 filter blur-3xl opacity-30 moving-gradient"></div>
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-teal-200 filter blur-3xl opacity-20 moving-gradient"></div>
+        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-primary/5 filter blur-3xl opacity-20 moving-gradient"></div>
+        <div className="absolute top-1/2 -left-40 w-96 h-96 rounded-full bg-accent/5 filter blur-3xl opacity-20 moving-gradient"></div>
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-muted/10 filter blur-3xl opacity-10 moving-gradient"></div>
         
         {/* Animated Tech Icons */}
         <div className="absolute top-1/4 left-1/4 floating-element animate-bounce-subtle">
           <Code className="h-8 w-8 text-primary/30" />
         </div>
         <div className="absolute bottom-1/4 right-1/3 floating-element" style={{ animationDelay: "1s" }}>
-          <Zap className="h-10 w-10 text-blue-400/20" />
+          <Zap className="h-10 w-10 text-accent/20" />
         </div>
         <div className="absolute top-2/3 right-1/4 floating-element" style={{ animationDelay: "2s" }}>
-          <BarChart className="h-12 w-12 text-green-400/20" />
+          <BarChart className="h-12 w-12 text-muted/20" />
         </div>
         
         {/* Animated Particles */}
@@ -77,12 +77,12 @@ const HeroSection = () => {
         <div className="max-w-4xl">
           <h1 className="hero-title staggered-item text-5xl md:text-7xl font-bold tracking-tight mb-6">
             <span className="block">AI-Driven</span>
-            <span className="block text-gradient animate-shimmer">Web Development</span>
+            <span className="block text-gradient animate-shimmer">Full-Stack Developer</span>
           </h1>
           
           <p className="hero-subtitle staggered-item text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl">
-            Specializing in full-stack AI applications that merge data science and elegant interfaces for powerful, 
-            intuitive user experiences.
+            Crafting intelligent applications that merge advanced data science with elegant user interfaces. 
+            Specializing in AI-powered tools that transform complex data into actionable insights.
           </p>
           
           <div className="hero-cta staggered-item flex flex-col sm:flex-row gap-4">
@@ -91,7 +91,7 @@ const HeroSection = () => {
               className={cn(
                 "inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-medium",
                 "bg-primary text-white hover:bg-primary/90 transition-all",
-                "shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
+                "shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/20"
               )}
             >
               View Projects
@@ -100,7 +100,7 @@ const HeroSection = () => {
               href="#contact" 
               className={cn(
                 "inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-medium",
-                "bg-white text-foreground border hover:bg-secondary transition-all",
+                "bg-secondary text-foreground border hover:bg-secondary/80 transition-all",
                 "shadow-sm hover:shadow-md"
               )}
             >

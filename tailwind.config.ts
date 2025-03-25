@@ -62,6 +62,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				github: {
+					dark: '#0d1117',
+					darker: '#010409',
+					border: '#30363d',
+					accent: '#2ea043',
+					highlight: '#388bfd'
 				}
 			},
 			fontFamily: {
