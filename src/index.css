@@ -1,11 +1,10 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Dark GitHub theme colors */
+    /* Dark GitHub theme colors with improved consistency */
     --background: 220 13% 7%; /* github dark */
     --foreground: 210 40% 98%;
 
@@ -15,7 +14,8 @@
     --popover: 222 14% 10%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 212 100% 61%; /* github blue highlight */
+    /* Make primary color consistent with GitHub green */
+    --primary: 142 62% 47%; /* github green */
     --primary-foreground: 210 40% 98%;
 
     --secondary: 215 14% 16%;
@@ -32,7 +32,7 @@
 
     --border: 220 13% 23%; /* github border */
     --input: 220 13% 23%;
-    --ring: 224.3 76.3% 48%;
+    --ring: 142 62% 47%; /* github green */
 
     --radius: 0.5rem;
 
@@ -81,7 +81,7 @@
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-github-highlight to-github-accent bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-github-accent to-github-accent/80 bg-clip-text text-transparent;
   }
   
   .section-title {
@@ -118,7 +118,7 @@
   }
 
   .image-card {
-    @apply relative overflow-hidden rounded-xl shadow-lg transition-all border border-github-border bg-github-dark;
+    @apply relative overflow-hidden rounded-xl shadow-lg transition-all border border-github-border bg-github-darker;
   }
   
   .image-card img {
@@ -147,7 +147,7 @@
   }
   
   .github-card {
-    @apply rounded-lg border border-github-border bg-github-dark p-6 transition-all hover:border-github-accent/30;
+    @apply rounded-lg border border-github-border bg-github-darker p-6 transition-all hover:border-github-accent/30;
   }
 }
 

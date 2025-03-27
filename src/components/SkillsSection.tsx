@@ -144,16 +144,16 @@ const SkillsSection = () => {
           ))}
         </div>
         
-        {/* Tech Slider with Logos */}
+        {/* Tech Slider with Logos - Fixed to prevent text overflow */}
         <div className="staggered-item overflow-hidden mt-16 rounded-lg glass-card p-6">
           <div className="tech-slider flex space-x-8 whitespace-nowrap">
             {[...techSlider, ...techSlider].map((tech, index) => (
               <div 
                 key={index}
-                className="text-sm md:text-base font-medium px-3 py-1 bg-secondary/50 rounded-full inline-flex items-center space-x-2"
+                className="text-sm md:text-base font-medium px-3 py-1 bg-secondary/50 rounded-full inline-flex items-center space-x-2 min-w-fit"
               >
-                <img src={tech.logo} alt={tech.name} className="w-5 h-5" />
-                <span>{tech.name}</span>
+                <img src={tech.logo} alt={tech.name} className="w-5 h-5 flex-shrink-0" />
+                <span className="truncate max-w-[120px]">{tech.name}</span>
               </div>
             ))}
           </div>

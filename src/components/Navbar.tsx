@@ -28,7 +28,7 @@ const Navbar = () => {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300 backdrop-blur-md',
-        isScrolled ? 'bg-background/90 border-b border-border shadow-sm' : 'bg-transparent'
+        isScrolled ? 'bg-github-darker/90 border-b border-border shadow-sm' : 'bg-transparent'
       )}
     >
       <div className="container mx-auto flex items-center justify-between">
@@ -43,7 +43,7 @@ const Navbar = () => {
               key={link.name}
               href={link.href}
               className={cn(
-                'text-sm font-medium hover:text-primary transition-colors animated-underline',
+                'text-sm font-medium hover:text-github-accent transition-colors animated-underline',
                 isScrolled ? 'text-foreground' : 'text-foreground'
               )}
             >
@@ -71,7 +71,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div
         className={cn(
-          'md:hidden fixed inset-x-0 top-16 bg-background/95 backdrop-blur-lg transition-all duration-300 ease-in-out shadow-md overflow-hidden border-b border-border',
+          'md:hidden fixed inset-x-0 top-16 bg-github-darker/95 backdrop-blur-lg transition-all duration-300 ease-in-out shadow-md overflow-hidden border-b border-border',
           mobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
         )}
       >
@@ -80,7 +80,7 @@ const Navbar = () => {
             <a
               key={link.name}
               href={link.href}
-              className="text-foreground font-medium py-2 hover:text-primary transition-colors"
+              className="text-foreground font-medium py-2 hover:text-github-accent transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               {link.name}
