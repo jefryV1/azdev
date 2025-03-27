@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { 
   ArrowRightIcon, 
@@ -9,7 +9,9 @@ import {
   Globe, 
   FileText, 
   PieChart, 
-  ExternalLink 
+  ExternalLink,
+  ChevronUpIcon,
+  ChevronDownIcon
 } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { 
@@ -20,6 +22,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
 interface ProjectCardProps {
   icon: React.ReactNode;
@@ -29,6 +32,9 @@ interface ProjectCardProps {
   tech: string[];
   imageSrc: string;
   delay?: string;
+  githubUrl?: string;
+  liveUrl?: string;
+  detailedDescription?: string;
 }
 
 const ProjectCard = ({ 
@@ -38,8 +44,13 @@ const ProjectCard = ({
   description, 
   tech, 
   imageSrc, 
-  delay = 'delay-0' 
+  delay = 'delay-0',
+  githubUrl,
+  liveUrl,
+  detailedDescription
 }: ProjectCardProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className={cn(
       "staggered-item project-card overflow-hidden rounded-xl",
@@ -74,19 +85,82 @@ const ProjectCard = ({
           </div>
         </div>
       </div>
-      <div className="p-6 bg-github-darker shadow-lg border border-github-border">
+
+      <Collapsible
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        className="p-6 bg-github-darker shadow-lg border border-github-border"
+      >
         <div className="mb-4 p-3 inline-block rounded-lg bg-github-accent/10 text-github-accent">
           {icon}
         </div>
         <h3 className="text-xl font-bold mb-3 text-white">{title}</h3>
         <p className="text-muted-foreground mb-6">{description}</p>
-        <a 
-          href="#" 
-          className="inline-flex items-center text-sm font-medium text-github-accent animated-underline"
-        >
-          View Details <ArrowRightIcon className="ml-1 h-4 w-4" />
-        </a>
-      </div>
+        
+        <CollapsibleTrigger asChild>
+          <button
+            className="inline-flex items-center text-sm font-medium text-github-accent animated-underline"
+          >
+            {isOpen ? (
+              <>
+                Hide Details <ChevronUpIcon className="ml-1 h-4 w-4" />
+              </>
+            ) : (
+              <>
+                View Details <ChevronDownIcon className="ml-1 h-4 w-4" />
+              </>
+            )}
+          </button>
+        </CollapsibleTrigger>
+        
+        <CollapsibleContent className="mt-6 space-y-6">
+          {detailedDescription && (
+            <div>
+              <h4 className="text-lg font-semibold mb-2 text-white">Project Details</h4>
+              <p className="text-muted-foreground">{detailedDescription}</p>
+            </div>
+          )}
+          
+          <div>
+            <h4 className="text-lg font-semibold mb-2 text-white">Technologies</h4>
+            <div className="flex flex-wrap gap-2">
+              {tech.map((item, index) => (
+                <span 
+                  key={index} 
+                  className="text-xs font-medium bg-github-accent/10 text-github-accent px-3 py-1 rounded-full"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+          
+          {(githubUrl || liveUrl) && (
+            <div className="flex gap-4 pt-2">
+              {githubUrl && (
+                <a 
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-sm font-medium text-github-accent hover:text-github-accent/80"
+                >
+                  View Code <ExternalLink className="ml-1 h-4 w-4" />
+                </a>
+              )}
+              {liveUrl && (
+                <a 
+                  href={liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-sm font-medium text-github-accent hover:text-github-accent/80"
+                >
+                  Live Demo <ExternalLink className="ml-1 h-4 w-4" />
+                </a>
+              )}
+            </div>
+          )}
+        </CollapsibleContent>
+      </Collapsible>
     </div>
   );
 };
@@ -97,22 +171,28 @@ const projects = [
     category: "Full-Stack Web App",
     title: "AI Business Analyzer",
     description: "An intelligent business analytics platform that provides AI-driven insights for financial and operational performance.",
+    detailedDescription: "This platform integrates data from multiple sources to provide comprehensive business intelligence. It uses machine learning algorithms to analyze trends, identify anomalies, and generate predictive insights that help businesses optimize their operations and financial performance.",
     tech: ["React", "Node.js", "TypeScript", "Tailwind CSS", "Supabase", "OpenAI"],
-    imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop"
+    imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop",
+    githubUrl: "https://github.com",
+    liveUrl: "https://example.com"
   },
   {
     icon: <Database className="h-6 w-6" />,
     category: "Full-Stack Web App",
     title: "Ethical Checker for Social Media",
     description: "A platform that analyzes the credibility of influencer and brand partnerships through sentiment analysis and AI scoring.",
+    detailedDescription: "This tool helps brands and consumers evaluate the authenticity and ethical standards of social media content and partnerships. By analyzing language patterns, disclosure practices, and audience engagement, it provides transparency scores that promote accountability in digital marketing.",
     tech: ["React", "Node.js", "TypeScript", "Supabase", "OpenAI", "Tailwind CSS"],
-    imageSrc: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=2874&auto=format&fit=crop"
+    imageSrc: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=2874&auto=format&fit=crop",
+    githubUrl: "https://github.com"
   },
   {
     icon: <LineChart className="h-6 w-6" />,
     category: "Data Science & AI",
     title: "AI-Powered Market Analysis",
     description: "A trading assistant that tracks market movements and provides AI-driven entry/exit recommendations.",
+    detailedDescription: "This application monitors real-time market data and uses machine learning models to identify potential trading opportunities. It analyzes historical patterns, volatility factors, and technical indicators to generate timely recommendations while managing risk through adaptive position sizing algorithms.",
     tech: ["Streamlit", "Python", "Pandas", "ML", "Yahoo Finance API", "SQLite"],
     imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop"
   },
@@ -121,14 +201,17 @@ const projects = [
     category: "Data Science & AI",
     title: "Data Cleaning & Visualization Tool",
     description: "An automation tool for data preprocessing with real-time visualization for anomaly detection.",
+    detailedDescription: "This tool streamlines the data preparation workflow by automating common cleaning tasks like handling missing values, removing duplicates, and standardizing formats. It incorporates interactive visualizations that help users quickly identify patterns, outliers, and data quality issues.",
     tech: ["Streamlit", "Python", "Pandas", "Plotly", "Seaborn", "SQLite"],
-    imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop"
+    imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop",
+    liveUrl: "https://example.com"
   },
   {
     icon: <FileText className="h-6 w-6" />,
     category: "Data Science & AI",
     title: "Job Application Automation Tool",
     description: "An automated system that scrapes job postings and matches them to resumes using AI technology.",
+    detailedDescription: "This application helps job seekers efficiently find and apply for relevant positions by automating the search process. It uses natural language processing to analyze job descriptions and match them with the user's skills and experience, prioritizing opportunities with the highest potential fit.",
     tech: ["Streamlit", "Python", "BeautifulSoup", "OpenAI GPT", "SQLite"],
     imageSrc: "https://images.unsplash.com/photo-1586473219010-2ffc57b0d282?q=80&w=2874&auto=format&fit=crop"
   },
@@ -137,8 +220,11 @@ const projects = [
     category: "Data Science & AI",
     title: "Advanced Stock Analysis Dashboard",
     description: "A real-time financial analytics dashboard with AI-driven predictions and visualization tools.",
+    detailedDescription: "This dashboard provides comprehensive stock market analytics through multiple visualization tools and predictive models. It integrates fundamental data, technical indicators, and sentiment analysis to offer a holistic view of investment opportunities and market trends.",
     tech: ["Streamlit", "Python", "Yahoo Finance API", "Power BI", "Pandas"],
-    imageSrc: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2940&auto=format&fit=crop"
+    imageSrc: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2940&auto=format&fit=crop",
+    githubUrl: "https://github.com",
+    liveUrl: "https://example.com"
   }
 ];
 

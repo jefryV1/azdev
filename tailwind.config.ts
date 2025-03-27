@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -73,6 +72,7 @@ export default {
 			},
 			fontFamily: {
 				sans: [
+					'SF Pro Display',
 					'system-ui',
 					'-apple-system',
 					'BlinkMacSystemFont',
