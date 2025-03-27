@@ -118,7 +118,7 @@
   }
 
   .image-card {
-    @apply relative overflow-hidden rounded-xl shadow-lg transition-all border border-github-border bg-github-darker;
+    @apply relative overflow-hidden rounded-t-xl shadow-lg transition-all border-t border-l border-r border-github-border bg-github-darker;
   }
   
   .image-card img {
@@ -142,7 +142,7 @@
   }
 
   .particle {
-    @apply absolute rounded-full;
+    @apply absolute rounded-full bg-github-accent/20;
     animation: particleFloat 20s infinite linear;
   }
   

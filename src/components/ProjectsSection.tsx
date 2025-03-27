@@ -89,76 +89,83 @@ const ProjectCard = ({
       <Collapsible
         open={isOpen}
         onOpenChange={setIsOpen}
-        className="p-6 bg-github-darker shadow-lg border border-github-border"
+        className="bg-github-darker border border-github-border transition-all duration-300 overflow-hidden"
       >
-        <div className="mb-4 p-3 inline-block rounded-lg bg-github-accent/10 text-github-accent">
-          {icon}
-        </div>
-        <h3 className="text-xl font-bold mb-3 text-white">{title}</h3>
-        <p className="text-muted-foreground mb-6">{description}</p>
-        
-        <CollapsibleTrigger asChild>
-          <button
-            className="inline-flex items-center text-sm font-medium text-github-accent animated-underline"
-          >
-            {isOpen ? (
-              <>
-                Hide Details <ChevronUpIcon className="ml-1 h-4 w-4" />
-              </>
-            ) : (
-              <>
-                View Details <ChevronDownIcon className="ml-1 h-4 w-4" />
-              </>
-            )}
-          </button>
-        </CollapsibleTrigger>
-        
-        <CollapsibleContent className="mt-6 space-y-6">
-          {detailedDescription && (
-            <div>
-              <h4 className="text-lg font-semibold mb-2 text-white">Project Details</h4>
-              <p className="text-muted-foreground">{detailedDescription}</p>
+        <div className="p-6">
+          <div className="flex items-start justify-between mb-4">
+            <div className="p-3 inline-block rounded-lg bg-github-accent/10 text-github-accent">
+              {icon}
             </div>
-          )}
-          
-          <div>
-            <h4 className="text-lg font-semibold mb-2 text-white">Technologies</h4>
-            <div className="flex flex-wrap gap-2">
-              {tech.map((item, index) => (
-                <span 
-                  key={index} 
-                  className="text-xs font-medium bg-github-accent/10 text-github-accent px-3 py-1 rounded-full"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
+            <CollapsibleTrigger asChild>
+              <button
+                className="inline-flex items-center text-sm font-medium text-github-accent hover:text-github-accent/80 transition-colors"
+              >
+                {isOpen ? (
+                  <>
+                    Hide Details <ChevronUpIcon className="ml-1 h-4 w-4" />
+                  </>
+                ) : (
+                  <>
+                    View Details <ChevronDownIcon className="ml-1 h-4 w-4" />
+                  </>
+                )}
+              </button>
+            </CollapsibleTrigger>
           </div>
-          
-          {(githubUrl || liveUrl) && (
-            <div className="flex gap-4 pt-2">
-              {githubUrl && (
-                <a 
-                  href={githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-sm font-medium text-github-accent hover:text-github-accent/80"
-                >
-                  View Code <ExternalLink className="ml-1 h-4 w-4" />
-                </a>
-              )}
-              {liveUrl && (
-                <a 
-                  href={liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-sm font-medium text-github-accent hover:text-github-accent/80"
-                >
-                  Live Demo <ExternalLink className="ml-1 h-4 w-4" />
-                </a>
-              )}
+          <h3 className="text-xl font-bold mb-3 text-white">{title}</h3>
+          <p className="text-muted-foreground mb-0">{description}</p>
+        </div>
+        
+        <CollapsibleContent>
+          <div className="px-6 pb-6 space-y-6 pt-2">
+            <div className="h-px w-full bg-github-border/50"></div>
+            
+            {detailedDescription && (
+              <div>
+                <h4 className="text-lg font-semibold mb-2 text-white">Project Details</h4>
+                <p className="text-muted-foreground">{detailedDescription}</p>
+              </div>
+            )}
+            
+            <div>
+              <h4 className="text-lg font-semibold mb-2 text-white">Technologies</h4>
+              <div className="flex flex-wrap gap-2">
+                {tech.map((item, index) => (
+                  <span 
+                    key={index} 
+                    className="text-xs font-medium bg-github-accent/10 text-github-accent px-3 py-1 rounded-full"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
-          )}
+            
+            {(githubUrl || liveUrl) && (
+              <div className="flex gap-4 pt-2">
+                {githubUrl && (
+                  <a 
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-sm font-medium text-github-accent hover:text-github-accent/80 transition-colors"
+                  >
+                    View Code <ExternalLink className="ml-1 h-4 w-4" />
+                  </a>
+                )}
+                {liveUrl && (
+                  <a 
+                    href={liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-sm font-medium text-github-accent hover:text-github-accent/80 transition-colors"
+                  >
+                    Live Demo <ExternalLink className="ml-1 h-4 w-4" />
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
         </CollapsibleContent>
       </Collapsible>
     </div>
