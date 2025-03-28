@@ -79,7 +79,7 @@ const HeroSection = () => {
       <div className="container mx-auto px-6 flex flex-col justify-center z-10">
         <div className="max-w-4xl">
           <h1 className="hero-title staggered-item text-5xl md:text-7xl font-bold tracking-tight mb-6">
-            <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-shimmer">Data Scientist &</span>
+            <span className="block text-white">Data Scientist &</span>
             <span className="block text-white">Full-Stack Developer</span>
           </h1>
           
