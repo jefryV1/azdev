@@ -1,12 +1,14 @@
 
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import SkillsSection from '@/components/SkillsSection';
-import ResumeSection from '@/components/ResumeSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import { FileText } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { useScrollAnimation } from '@/hooks/useScroll';
 
 const Index = () => {
@@ -70,7 +72,16 @@ const Index = () => {
     <div className="min-h-screen bg-background antialiased overflow-x-hidden">
       <Navbar />
       <HeroSection />
-      <ResumeSection />
+      
+      {/* Resume Button (visible on mobile/smaller screens) */}
+      <div className="container mx-auto px-6 my-8 flex justify-center md:hidden">
+        <Link to="/resume">
+          <Button className="w-full gap-2">
+            <FileText className="h-4 w-4" /> View My Resume
+          </Button>
+        </Link>
+      </div>
+      
       <ProjectsSection />
       <SkillsSection />
       <ContactSection />

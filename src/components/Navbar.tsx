@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { MenuIcon, XIcon } from 'lucide-react';
+import { MenuIcon, XIcon, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const navLinks = [
   { name: 'Home', href: '#hero' },
@@ -50,6 +51,12 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
+          <Link to="/resume">
+            <Button variant="outline" size="sm" className="gap-2">
+              <FileText className="h-4 w-4" />
+              Resume
+            </Button>
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -86,6 +93,13 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
+          <Link 
+            to="/resume" 
+            className="text-foreground font-medium py-2 hover:text-github-accent transition-colors flex items-center gap-2"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <FileText className="h-4 w-4" /> Resume
+          </Link>
         </nav>
       </div>
     </header>
