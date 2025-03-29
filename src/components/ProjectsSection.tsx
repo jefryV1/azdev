@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { 
@@ -9,7 +8,6 @@ import {
   Globe, 
   FileText, 
   PieChart, 
-  ExternalLink,
   ChevronUpIcon,
   ChevronDownIcon
 } from 'lucide-react';
@@ -32,8 +30,6 @@ interface ProjectCardProps {
   tech: string[];
   imageSrc: string;
   delay?: string;
-  githubUrl?: string;
-  liveUrl?: string;
   detailedDescription?: string;
 }
 
@@ -45,8 +41,6 @@ const ProjectCard = ({
   tech, 
   imageSrc, 
   delay = 'delay-0',
-  githubUrl,
-  liveUrl,
   detailedDescription
 }: ProjectCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -140,31 +134,6 @@ const ProjectCard = ({
                 ))}
               </div>
             </div>
-            
-            {(githubUrl || liveUrl) && (
-              <div className="flex gap-4 pt-2">
-                {githubUrl && (
-                  <a 
-                    href={githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-sm font-medium text-github-accent hover:text-github-accent/80 transition-colors"
-                  >
-                    View Code <ExternalLink className="ml-1 h-4 w-4" />
-                  </a>
-                )}
-                {liveUrl && (
-                  <a 
-                    href={liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-sm font-medium text-github-accent hover:text-github-accent/80 transition-colors"
-                  >
-                    Live Demo <ExternalLink className="ml-1 h-4 w-4" />
-                  </a>
-                )}
-              </div>
-            )}
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -181,8 +150,6 @@ const projects = [
     detailedDescription: "This platform integrates data from multiple sources to provide comprehensive business intelligence. It uses machine learning algorithms to analyze trends, identify anomalies, and generate predictive insights that help businesses optimize their operations and financial performance.",
     tech: ["React", "Node.js", "TypeScript", "Tailwind CSS", "Supabase", "OpenAI"],
     imageSrc: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?q=80&w=2940&auto=format&fit=crop",
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com"
   },
   {
     icon: <Database className="h-6 w-6" />,
@@ -192,7 +159,6 @@ const projects = [
     detailedDescription: "This tool helps brands and consumers evaluate the authenticity and ethical standards of social media content and partnerships. By analyzing language patterns, disclosure practices, and audience engagement, it provides transparency scores that promote accountability in digital marketing.",
     tech: ["React", "Node.js", "TypeScript", "Supabase", "OpenAI", "Tailwind CSS"],
     imageSrc: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?q=80&w=2940&auto=format&fit=crop",
-    githubUrl: "https://github.com"
   },
   {
     icon: <LineChart className="h-6 w-6" />,
@@ -211,7 +177,6 @@ const projects = [
     detailedDescription: "This tool streamlines the data preparation workflow by automating common cleaning tasks like handling missing values, removing duplicates, and standardizing formats. It incorporates interactive visualizations that help users quickly identify patterns, outliers, and data quality issues.",
     tech: ["Streamlit", "Python", "Pandas", "Plotly", "Seaborn", "SQLite"],
     imageSrc: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2940&auto=format&fit=crop",
-    liveUrl: "https://example.com"
   },
   {
     icon: <FileText className="h-6 w-6" />,
@@ -230,8 +195,6 @@ const projects = [
     detailedDescription: "This dashboard provides comprehensive stock market analytics through multiple visualization tools and predictive models. It integrates fundamental data, technical indicators, and sentiment analysis to offer a holistic view of investment opportunities and market trends.",
     tech: ["Streamlit", "Python", "Yahoo Finance API", "Power BI", "Pandas"],
     imageSrc: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2940&auto=format&fit=crop",
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com"
   }
 ];
 

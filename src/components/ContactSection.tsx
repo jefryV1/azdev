@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -81,17 +80,14 @@ const ContactSection = () => {
     setLoading(true);
     
     try {
-      // Create a FormData object
       const formData = new FormData();
       
-      // Add form fields to FormData
       formData.append("name", values.name);
       formData.append("email", values.email);
       formData.append("message", values.message);
       formData.append("_autoresponse", "Thanks for your message! I'll get back to you soon.");
       formData.append("_next", window.location.href);
       
-      // Send the form using Web3Forms API
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData,
@@ -224,7 +220,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h3 className="text-base font-medium mb-1">Email</h3>
-                  <p className="text-muted-foreground text-sm">azizdhoui2002@gmail.com</p>
+                  <p className="text-muted-foreground text-sm">azizdhouib2002@gmail.com</p>
                 </div>
               </div>
             </div>
