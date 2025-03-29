@@ -6,14 +6,42 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
 import { Mail, Send } from 'lucide-react';
+import { 
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage 
+} from '@/components/ui/form';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+
+const formSchema = z.object({
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  email: z.string().email({
+    message: "Please enter a valid email address.",
+  }),
+  message: z.string().min(10, {
+    message: "Message must be at least 10 characters.",
+  }),
+});
 
 const ContactSection = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  
   const sectionRef = useRef<HTMLDivElement>(null);
+  
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -49,22 +77,48 @@ const ContactSection = () => {
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setLoading(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
+    try {
+      // Create a FormData object
+      const formData = new FormData();
+      
+      // Add form fields to FormData
+      formData.append("name", values.name);
+      formData.append("email", values.email);
+      formData.append("message", values.message);
+      formData.append("_autoresponse", "Thanks for your message! I'll get back to you soon.");
+      formData.append("_next", window.location.href);
+      
+      // Send the form using Web3Forms API
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
       });
       
-      setName('');
-      setEmail('');
-      setMessage('');
+      const data = await response.json();
+      
+      if (data.success) {
+        toast({
+          title: "Message sent!",
+          description: "Thanks for reaching out. I'll get back to you soon.",
+        });
+        
+        form.reset();
+      } else {
+        throw new Error(data.message || "Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error sending message",
+        description: "Please try again or contact me directly via email.",
+        variant: "destructive",
+      });
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -83,65 +137,85 @@ const ContactSection = () => {
         
         <div className="max-w-4xl mx-auto">
           <div className="glass-card rounded-xl p-8 md:p-10 shadow-lg staggered-item">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium block">
-                    Name
-                  </label>
-                  <Input
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Your name"
-                    required
-                    className="w-full bg-secondary/80 border-border"
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem className="space-y-2">
+                        <FormLabel className="text-sm font-medium block">
+                          Name
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Your name"
+                            className="w-full bg-secondary/80 border-border"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem className="space-y-2">
+                        <FormLabel className="text-sm font-medium block">
+                          Email
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="Your email"
+                            className="w-full bg-secondary/80 border-border"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
                 </div>
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium block">
-                    Email
-                  </label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email"
-                    required
-                    className="w-full bg-secondary/80 border-border"
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium block">
-                  Message
-                </label>
-                <Textarea
-                  id="message"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Your message"
-                  required
-                  className="w-full min-h-[150px] bg-secondary/80 border-border"
+                
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2">
+                      <FormLabel className="text-sm font-medium block">
+                        Message
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Your message"
+                          className="w-full min-h-[150px] bg-secondary/80 border-border"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              
-              <Button 
-                type="submit" 
-                disabled={loading}
-                className="w-full md:w-auto flex items-center justify-center gap-2 shadow-lg shadow-primary/10"
-              >
-                {loading ? (
-                  <>Sending...</>
-                ) : (
-                  <>
-                    Send Message <Send className="h-4 w-4" />
-                  </>
-                )}
-              </Button>
-            </form>
+                
+                <Button 
+                  type="submit" 
+                  disabled={loading}
+                  className="w-full md:w-auto flex items-center justify-center gap-2 shadow-lg shadow-primary/10"
+                >
+                  {loading ? (
+                    <>Sending...</>
+                  ) : (
+                    <>
+                      Send Message <Send className="h-4 w-4" />
+                    </>
+                  )}
+                </Button>
+              </form>
+            </Form>
             
             <div className="mt-10 pt-8 border-t border-border">
               <div className="flex items-start gap-4">
@@ -150,7 +224,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h3 className="text-base font-medium mb-1">Email</h3>
-                  <p className="text-muted-foreground text-sm">contact@example.com</p>
+                  <p className="text-muted-foreground text-sm">azizdhoui2002@gmail.com</p>
                 </div>
               </div>
             </div>

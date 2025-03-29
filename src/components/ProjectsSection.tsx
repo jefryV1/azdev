@@ -180,7 +180,7 @@ const projects = [
     description: "An intelligent business analytics platform that provides AI-driven insights for financial and operational performance.",
     detailedDescription: "This platform integrates data from multiple sources to provide comprehensive business intelligence. It uses machine learning algorithms to analyze trends, identify anomalies, and generate predictive insights that help businesses optimize their operations and financial performance.",
     tech: ["React", "Node.js", "TypeScript", "Tailwind CSS", "Supabase", "OpenAI"],
-    imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop",
+    imageSrc: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?q=80&w=2940&auto=format&fit=crop",
     githubUrl: "https://github.com",
     liveUrl: "https://example.com"
   },
@@ -191,7 +191,7 @@ const projects = [
     description: "A platform that analyzes the credibility of influencer and brand partnerships through sentiment analysis and AI scoring.",
     detailedDescription: "This tool helps brands and consumers evaluate the authenticity and ethical standards of social media content and partnerships. By analyzing language patterns, disclosure practices, and audience engagement, it provides transparency scores that promote accountability in digital marketing.",
     tech: ["React", "Node.js", "TypeScript", "Supabase", "OpenAI", "Tailwind CSS"],
-    imageSrc: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=2874&auto=format&fit=crop",
+    imageSrc: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?q=80&w=2940&auto=format&fit=crop",
     githubUrl: "https://github.com"
   },
   {
@@ -201,7 +201,7 @@ const projects = [
     description: "A trading assistant that tracks market movements and provides AI-driven entry/exit recommendations.",
     detailedDescription: "This application monitors real-time market data and uses machine learning models to identify potential trading opportunities. It analyzes historical patterns, volatility factors, and technical indicators to generate timely recommendations while managing risk through adaptive position sizing algorithms.",
     tech: ["Streamlit", "Python", "Pandas", "ML", "Yahoo Finance API", "SQLite"],
-    imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop"
+    imageSrc: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2940&auto=format&fit=crop"
   },
   {
     icon: <PieChart className="h-6 w-6" />,
@@ -210,7 +210,7 @@ const projects = [
     description: "An automation tool for data preprocessing with real-time visualization for anomaly detection.",
     detailedDescription: "This tool streamlines the data preparation workflow by automating common cleaning tasks like handling missing values, removing duplicates, and standardizing formats. It incorporates interactive visualizations that help users quickly identify patterns, outliers, and data quality issues.",
     tech: ["Streamlit", "Python", "Pandas", "Plotly", "Seaborn", "SQLite"],
-    imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop",
+    imageSrc: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2940&auto=format&fit=crop",
     liveUrl: "https://example.com"
   },
   {
@@ -220,7 +220,7 @@ const projects = [
     description: "An automated system that scrapes job postings and matches them to resumes using AI technology.",
     detailedDescription: "This application helps job seekers efficiently find and apply for relevant positions by automating the search process. It uses natural language processing to analyze job descriptions and match them with the user's skills and experience, prioritizing opportunities with the highest potential fit.",
     tech: ["Streamlit", "Python", "BeautifulSoup", "OpenAI GPT", "SQLite"],
-    imageSrc: "https://images.unsplash.com/photo-1586473219010-2ffc57b0d282?q=80&w=2874&auto=format&fit=crop"
+    imageSrc: "https://images.unsplash.com/photo-1572396132959-61f76741536b?q=80&w=2940&auto=format&fit=crop"
   },
   {
     icon: <Globe className="h-6 w-6" />,
@@ -229,7 +229,7 @@ const projects = [
     description: "A real-time financial analytics dashboard with AI-driven predictions and visualization tools.",
     detailedDescription: "This dashboard provides comprehensive stock market analytics through multiple visualization tools and predictive models. It integrates fundamental data, technical indicators, and sentiment analysis to offer a holistic view of investment opportunities and market trends.",
     tech: ["Streamlit", "Python", "Yahoo Finance API", "Power BI", "Pandas"],
-    imageSrc: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2940&auto=format&fit=crop",
+    imageSrc: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2940&auto=format&fit=crop",
     githubUrl: "https://github.com",
     liveUrl: "https://example.com"
   }
