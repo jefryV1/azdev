@@ -1,126 +1,107 @@
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ThemeToggle } from './ThemeToggle';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { MenuIcon, XIcon, FileText } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
-const navItems = [
-  { name: 'Home', path: '/' },
-  { name: 'Projects', path: '/#projects' },
-  { name: 'Skills', path: '/#skills' },
-  { name: 'Contact', path: '/#contact' },
-  { name: 'Resume', path: '/resume' }
+const navLinks = [
+  { name: 'Home', href: '#hero' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Skills', href: '#skills' },
+  { name: 'Contact', href: '#contact' }
 ];
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const isMobile = useIsMobile();
-  const location = useLocation();
-  const navbarRef = useRef<HTMLDivElement>(null);
-  
-  // Handle scrolling
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      if (scrollPosition > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 20);
     };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle mobile menu
-  const toggleMenu = () => setIsOpen(!isOpen);
-  
-  // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-  
-  // Close menu when route changes
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location]);
-
   return (
-    <header 
-      ref={navbarRef}
+    <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled ? "bg-background/80 backdrop-blur-md shadow-md" : "bg-transparent"
+        'fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300 backdrop-blur-md',
+        isScrolled ? 'bg-github-darker/90 border-b border-border shadow-sm' : 'bg-transparent'
       )}
     >
-      <div className="container mx-auto px-4 flex items-center justify-between h-16">
-        <div className="flex items-center">
-          <Link to="/" className="text-xl font-bold bg-gradient-to-r from-github-accent to-github-highlight bg-clip-text text-transparent">
-            SH.
-          </Link>
-        </div>
-        
-        <nav className="hidden md:flex items-center space-x-4">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
+      <div className="container mx-auto flex items-center justify-between">
+        <a href="#hero" className="font-bold text-2xl text-gradient">
+          Portfolio
+        </a>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-8">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
               className={cn(
-                "px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                location.pathname === item.path || (item.path.includes('#') && location.pathname === '/' && location.hash === item.path.substring(1))
-                  ? "text-white bg-github-accent/20"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                'text-sm font-medium hover:text-github-accent transition-colors animated-underline',
+                isScrolled ? 'text-foreground' : 'text-foreground'
               )}
             >
-              {item.name}
-            </Link>
+              {link.name}
+            </a>
           ))}
-          <div className="ml-2">
-            <ThemeToggle />
-          </div>
+          <Link to="/resume">
+            <Button variant="outline" size="sm" className="gap-2">
+              <FileText className="h-4 w-4" />
+              Resume
+            </Button>
+          </Link>
         </nav>
-        
-        <div className="flex md:hidden items-center">
-          <ThemeToggle />
-          <Button variant="ghost" size="icon" onClick={toggleMenu} className="ml-1">
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
-        </div>
+
+        {/* Mobile Menu Button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden"
+          aria-label="Toggle Menu"
+        >
+          {mobileMenuOpen ? (
+            <XIcon className="h-6 w-6" />
+          ) : (
+            <MenuIcon className="h-6 w-6" />
+          )}
+        </Button>
       </div>
-      
-      {/* Mobile menu */}
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-background/95 backdrop-blur-md border-t">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={cn(
-                  "block px-3 py-2 rounded-md text-base font-medium transition-colors",
-                  location.pathname === item.path || (item.path.includes('#') && location.pathname === '/' && location.hash === item.path.substring(1))
-                    ? "text-white bg-github-accent/20"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                )}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+
+      {/* Mobile Menu */}
+      <div
+        className={cn(
+          'md:hidden fixed inset-x-0 top-16 bg-github-darker/95 backdrop-blur-lg transition-all duration-300 ease-in-out shadow-md overflow-hidden border-b border-border',
+          mobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+        )}
+      >
+        <nav className="flex flex-col space-y-4 p-6">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="text-foreground font-medium py-2 hover:text-github-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {link.name}
+            </a>
+          ))}
+          <Link 
+            to="/resume" 
+            className="text-foreground font-medium py-2 hover:text-github-accent transition-colors flex items-center gap-2"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <FileText className="h-4 w-4" /> Resume
+          </Link>
+        </nav>
+      </div>
     </header>
   );
 };

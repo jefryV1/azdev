@@ -1,155 +1,162 @@
 
 import React, { useEffect, useRef } from 'react';
-import { Laptop, Server, Code, Database, Terminal, GitBranch, Globe, BarChart, LineChart } from 'lucide-react';
-import SkillsChart from './SkillsChart';
-import { motion } from 'framer-motion';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
-import { Card, CardContent } from './ui/card';
+import { cn } from '@/lib/utils';
+
+interface SkillCategoryProps {
+  title: string;
+  skills: string[];
+  delay?: string;
+}
+
+const SkillCategory = ({ title, skills, delay = 'delay-0' }: SkillCategoryProps) => {
+  return (
+    <div className={cn(
+      "staggered-item glass-card rounded-xl p-6 h-full",
+      "hover:shadow-lg transition-all duration-300",
+      delay
+    )}>
+      <h3 className="text-lg font-bold mb-4">{title}</h3>
+      <div className="flex flex-wrap gap-2">
+        {skills.map((skill, index) => (
+          <span 
+            key={index} 
+            className="text-sm bg-secondary rounded-full px-3 py-1 mb-2"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const skillsData = [
+  {
+    title: "Frontend Development",
+    skills: ["React", "TypeScript", "Tailwind CSS", "Streamlit", "Responsive Design", "UI/UX", "Redux", "Next.js"]
+  },
+  {
+    title: "Backend & Databases",
+    skills: ["Node.js", "Express", "Supabase", "PostgreSQL", "SQLite", "RESTful APIs", "GraphQL", "Firebase"]
+  },
+  {
+    title: "AI & Data Science",
+    skills: ["Python", "Scikit-learn", "TensorFlow", "Pandas", "NLP (SpaCy)", "OpenAI API", "Machine Learning", "Data Analysis"]
+  },
+  {
+    title: "Data Visualization & BI",
+    skills: ["Power BI", "Tableau", "Plotly", "Seaborn", "D3.js", "Chart.js", "Data Dashboards", "Real-time Analytics"]
+  },
+  {
+    title: "Web Scraping & Automation",
+    skills: ["BeautifulSoup", "Selenium", "Puppeteer", "API Integration", "Process Automation", "ETL Pipelines", "Cron Jobs"]
+  },
+  {
+    title: "Cloud & DevOps",
+    skills: ["Supabase", "AWS", "Azure", "Docker", "CI/CD", "Git", "GitHub Actions", "Deployment Automation"]
+  }
+];
+
+// Add logo information for tech slider
+const techSlider = [
+  { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+  { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+  { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "Supabase", logo: "https://seeklogo.com/images/S/supabase-logo-DCC676FFE2-seeklogo.com.png" },
+  { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+  { name: "OpenAI API", logo: "https://seeklogo.com/images/O/openai-logo-8B9BFEDC26-seeklogo.com.png" },
+  { name: "Tailwind CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" },
+  { name: "Streamlit", logo: "https://seeklogo.com/images/S/streamlit-logo-1A3B208AE4-seeklogo.com.png" },
+  { name: "Pandas", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" },
+  { name: "Machine Learning", logo: "https://cdn-icons-png.flaticon.com/512/2103/2103633.png" },
+  { name: "RESTful APIs", logo: "https://cdn-icons-png.flaticon.com/512/10306/10306726.png" },
+  { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
+  { name: "Scikit-learn", logo: "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" },
+  { name: "TensorFlow", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
+  { name: "Power BI", logo: "https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg" },
+  { name: "Tableau", logo: "https://cdn.worldvectorlogo.com/logos/tableau-software.svg" },
+  { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+  { name: "AWS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" },
+  { name: "Azure", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" },
+  { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+  { name: "GitHub Actions", logo: "https://github.githubassets.com/images/modules/site/features/actions-icon-actions.svg" }
+];
 
 const SkillsSection = () => {
-  const skillsData = [
-    {
-      name: "Frontend Development",
-      icon: <Laptop className="h-5 w-5" />,
-      skills: [
-        { name: "React", icon: <Code className="h-4 w-4" />, iconBg: "bg-blue-100 text-blue-500" },
-        { name: "TypeScript", icon: <Code className="h-4 w-4" />, iconBg: "bg-blue-100 text-blue-500" },
-        { name: "Tailwind CSS", icon: <Code className="h-4 w-4" />, iconBg: "bg-teal-100 text-teal-500" },
-        { name: "Next.js", icon: <Code className="h-4 w-4" />, iconBg: "bg-gray-100 text-gray-500" },
-      ],
-    },
-    {
-      name: "Backend Development",
-      icon: <Server className="h-5 w-5" />,
-      skills: [
-        { name: "Node.js", icon: <Terminal className="h-4 w-4" />, iconBg: "bg-green-100 text-green-500" },
-        { name: "Express.js", icon: <Terminal className="h-4 w-4" />, iconBg: "bg-green-100 text-green-500" },
-        { name: "SQL", icon: <Database className="h-4 w-4" />, iconBg: "bg-yellow-100 text-yellow-500" },
-        { name: "NoSQL", icon: <Database className="h-4 w-4" />, iconBg: "bg-yellow-100 text-yellow-500" },
-      ],
-    },
-    {
-      name: "AI & Data Science",
-      icon: <GitBranch className="h-5 w-5" />,
-      skills: [
-        { name: "Python", icon: <Code className="h-4 w-4" />, iconBg: "bg-blue-100 text-blue-500" },
-        { name: "Pandas", icon: <BarChart className="h-4 w-4" />, iconBg: "bg-orange-100 text-orange-500" },
-        { name: "Streamlit", icon: <Globe className="h-4 w-4" />, iconBg: "bg-red-100 text-red-500" },
-        { name: "Machine Learning", icon: <LineChart className="h-4 w-4" />, iconBg: "bg-purple-100 text-purple-500" },
-      ],
-    },
-  ];
-
-  // Skills data for the chart
-  const chartData = [
-    { skill: 'React', value: 90, color: '#61dafb' },
-    { skill: 'TypeScript', value: 85, color: '#3178c6' },
-    { skill: 'Node.js', value: 80, color: '#8cc84b' },
-    { skill: 'Python', value: 75, color: '#3776ab' },
-    { skill: 'TailwindCSS', value: 90, color: '#38b2ac' },
-    { skill: 'SQL', value: 70, color: '#f29111' }
-  ];
+  const sectionRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const title = entry.target.querySelector('.section-title');
+            const subtitle = entry.target.querySelector('.section-subtitle');
+            const items = entry.target.querySelectorAll('.staggered-item');
+            
+            if (title) title.classList.add('active');
+            if (subtitle) subtitle.classList.add('active', 'delay-300');
+            
+            items.forEach((item, index) => {
+              setTimeout(() => {
+                item.classList.add('active');
+              }, 300 + index * 100);
+            });
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <section id="skills" className="py-20 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="fancy-blob w-96 h-96 bottom-0 left-0 bg-github-accent/5"></div>
-        <div className="fancy-blob w-80 h-80 top-1/4 right-10 bg-github-highlight/5"></div>
-        <div className="fancy-blob w-64 h-64 bottom-1/4 right-1/4 bg-github-accent/5"></div>
+    <section id="skills" ref={sectionRef} className="py-20 relative bg-gradient-to-b from-github-dark to-github-darker">
+      <div className="absolute inset-0 overflow-hidden -z-10">
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-github-accent/5 filter blur-3xl opacity-20" />
       </div>
       
       <div className="container px-6 mx-auto">
         <div className="text-center mb-16">
-          <h2 className="section-title text-3xl font-bold mb-4">Technical Skills</h2>
-          <p className="section-subtitle text-muted-foreground max-w-2xl mx-auto">
-            Programming languages and technologies I work with
+          <h2 className="section-title staggered-item text-gradient">Technical Expertise</h2>
+          <p className="section-subtitle staggered-item mx-auto">
+            A comprehensive toolkit for building modern, AI-driven applications
           </p>
         </div>
         
-        {/* Skills Carousel */}
-        <div className="mb-16">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-2 md:-ml-4">
-              {skillsData.map((category, index) => (
-                <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                  <Card className="border border-border bg-card/80 backdrop-blur-sm">
-                    <CardContent className="p-6">
-                      <h3 className="text-xl font-bold mb-4 flex items-center">
-                        <span className="p-2 rounded-md bg-primary/10 text-primary mr-3">
-                          {category.icon}
-                        </span>
-                        <span>{category.name}</span>
-                      </h3>
-                      <div className="grid grid-cols-2 gap-3">
-                        {category.skills.map((skill, skillIndex) => (
-                          <motion.div 
-                            key={skillIndex}
-                            className="p-3 rounded-lg bg-secondary/30 border border-border flex items-center gap-2"
-                            whileHover={{ 
-                              scale: 1.03,
-                              backgroundColor: "rgba(100, 100, 100, 0.2)"
-                            }}
-                            transition={{ type: "spring", stiffness: 300 }}
-                          >
-                            <div className={`w-7 h-7 rounded-full flex items-center justify-center ${skill.iconBg}`}>
-                              {skill.icon}
-                            </div>
-                            <span className="text-sm font-medium">{skill.name}</span>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex justify-center mt-8 gap-2">
-              <CarouselPrevious className="relative inset-0 translate-y-0" />
-              <CarouselNext className="relative inset-0 translate-y-0" />
-            </div>
-          </Carousel>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
+          {skillsData.map((category, index) => (
+            <SkillCategory 
+              key={index} 
+              {...category} 
+              delay={`delay-${(index + 1) * 100}`}
+            />
+          ))}
         </div>
         
-        {/* Skills Chart */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h3 className="text-2xl font-bold mb-4">Skills Proficiency</h3>
-            <p className="text-muted-foreground mb-6">
-              I continuously develop my technical skills to stay current with industry trends and best practices. My proficiency in various technologies reflects my dedication to mastering both frontend and backend development.
-            </p>
-            <ul className="space-y-3">
-              {chartData.slice(0, 3).map((item, i) => (
-                <motion.li 
-                  key={i}
-                  className="flex items-center gap-3"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
-                  <span className="font-medium">{item.skill}</span>
-                </motion.li>
-              ))}
-            </ul>
+        {/* Tech Slider with Logos - Fixed to prevent text overflow */}
+        <div className="staggered-item overflow-hidden mt-16 rounded-lg glass-card p-6">
+          <div className="tech-slider flex space-x-8 whitespace-nowrap">
+            {[...techSlider, ...techSlider].map((tech, index) => (
+              <div 
+                key={index}
+                className="text-sm md:text-base font-medium px-3 py-1 bg-secondary/50 rounded-full inline-flex items-center space-x-2 min-w-fit"
+              >
+                <img src={tech.logo} alt={tech.name} className="w-5 h-5 flex-shrink-0" />
+                <span className="truncate max-w-[120px]">{tech.name}</span>
+              </div>
+            ))}
           </div>
-          
-          <motion.div 
-            className="bg-card border border-border p-6 rounded-xl shadow-sm"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <SkillsChart data={chartData} />
-          </motion.div>
         </div>
       </div>
     </section>

@@ -10,12 +10,14 @@ import Footer from '@/components/Footer';
 import { FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useScrollAnimation } from '@/hooks/useScroll';
-import { motion } from 'framer-motion';
 
 const Index = () => {
   useScrollAnimation();
   
   useEffect(() => {
+    // Set dark theme for the entire site
+    document.documentElement.classList.add('dark');
+    
     // Smooth scroll to section when clicking on hash links
     const handleHashLinkClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -69,13 +71,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background antialiased overflow-x-hidden">
       <Navbar />
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <HeroSection />
-      </motion.div>
+      <HeroSection />
       
       {/* Resume Button (visible on mobile/smaller screens) */}
       <div className="container mx-auto px-6 my-8 flex justify-center md:hidden">
@@ -86,33 +82,9 @@ const Index = () => {
         </Link>
       </div>
       
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <ProjectsSection />
-      </motion.div>
-      
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <SkillsSection />
-      </motion.div>
-      
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <ContactSection />
-      </motion.div>
-      
+      <ProjectsSection />
+      <SkillsSection />
+      <ContactSection />
       <Footer />
     </div>
   );
