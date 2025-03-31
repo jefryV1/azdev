@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from 'react';
 import { Laptop, Server, Code, Database, Terminal, GitBranch, Globe, BarChart, LineChart } from 'lucide-react';
 import SkillsChart from './SkillsChart';
 import { motion } from 'framer-motion';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
+import { Card, CardContent } from './ui/card';
 
 const SkillsSection = () => {
   const skillsData = [
@@ -38,42 +40,6 @@ const SkillsSection = () => {
     },
   ];
 
-  const sectionRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const title = entry.target.querySelector('.section-title');
-            const subtitle = entry.target.querySelector('.section-subtitle');
-            const items = entry.target.querySelectorAll('.staggered-item');
-            
-            if (title) title.classList.add('active');
-            if (subtitle) subtitle.classList.add('active', 'delay-300');
-            
-            items.forEach((item, index) => {
-              setTimeout(() => {
-                item.classList.add('active');
-              }, 300 + index * 100);
-            });
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-    
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
-  
   // Skills data for the chart
   const chartData = [
     { skill: 'React', value: 90, color: '#61dafb' },
@@ -85,7 +51,7 @@ const SkillsSection = () => {
   ];
 
   return (
-    <section id="skills" ref={sectionRef} className="py-20 relative overflow-hidden">
+    <section id="skills" className="py-20 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="fancy-blob w-96 h-96 bottom-0 left-0 bg-github-accent/5"></div>
@@ -101,40 +67,89 @@ const SkillsSection = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div className="space-y-8">
-            {skillsData.map((category, index) => (
-              <div 
-                key={index} 
-                className="staggered-item bg-card border border-border rounded-xl p-6 shadow-sm"
-              >
-                <h3 className="text-xl font-bold mb-4 flex items-center">
-                  <span className="p-2 rounded-md bg-primary/10 text-primary mr-3">
-                    {category.icon}
-                  </span>
-                  <span>{category.name}</span>
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div 
-                      key={skillIndex} 
-                      className="p-4 rounded-lg bg-secondary/30 border border-border flex items-center gap-3 transition-all hover:bg-secondary/50"
-                    >
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${skill.iconBg}`}>
-                        {skill.icon}
+        {/* Skills Carousel */}
+        <div className="mb-16">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {skillsData.map((category, index) => (
+                <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                  <Card className="border border-border bg-card/80 backdrop-blur-sm">
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-bold mb-4 flex items-center">
+                        <span className="p-2 rounded-md bg-primary/10 text-primary mr-3">
+                          {category.icon}
+                        </span>
+                        <span>{category.name}</span>
+                      </h3>
+                      <div className="grid grid-cols-2 gap-3">
+                        {category.skills.map((skill, skillIndex) => (
+                          <motion.div 
+                            key={skillIndex}
+                            className="p-3 rounded-lg bg-secondary/30 border border-border flex items-center gap-2"
+                            whileHover={{ 
+                              scale: 1.03,
+                              backgroundColor: "rgba(100, 100, 100, 0.2)"
+                            }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                          >
+                            <div className={`w-7 h-7 rounded-full flex items-center justify-center ${skill.iconBg}`}>
+                              {skill.icon}
+                            </div>
+                            <span className="text-sm font-medium">{skill.name}</span>
+                          </motion.div>
+                        ))}
                       </div>
-                      <span className="text-sm font-medium">{skill.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center mt-8 gap-2">
+              <CarouselPrevious className="relative inset-0 translate-y-0" />
+              <CarouselNext className="relative inset-0 translate-y-0" />
+            </div>
+          </Carousel>
+        </div>
+        
+        {/* Skills Chart */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 className="text-2xl font-bold mb-4">Skills Proficiency</h3>
+            <p className="text-muted-foreground mb-6">
+              I continuously develop my technical skills to stay current with industry trends and best practices. My proficiency in various technologies reflects my dedication to mastering both frontend and backend development.
+            </p>
+            <ul className="space-y-3">
+              {chartData.slice(0, 3).map((item, i) => (
+                <motion.li 
+                  key={i}
+                  className="flex items-center gap-3"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
+                  <span className="font-medium">{item.skill}</span>
+                </motion.li>
+              ))}
+            </ul>
           </div>
           
-          <div className="bg-card border border-border p-6 rounded-xl shadow-sm">
-            <h3 className="text-xl font-bold mb-6 text-center">Skills Proficiency</h3>
+          <motion.div 
+            className="bg-card border border-border p-6 rounded-xl shadow-sm"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
             <SkillsChart data={chartData} />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
