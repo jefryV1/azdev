@@ -91,23 +91,6 @@ const SkillsSection = () => {
         <div className="fancy-blob w-96 h-96 bottom-0 left-0 bg-github-accent/5"></div>
         <div className="fancy-blob w-80 h-80 top-1/4 right-10 bg-github-highlight/5"></div>
         <div className="fancy-blob w-64 h-64 bottom-1/4 right-1/4 bg-github-accent/5"></div>
-        
-        {/* Animated particles */}
-        {[...Array(8)].map((_, i) => (
-          <div 
-            key={i}
-            className="particle"
-            style={{
-              width: `${Math.random() * 20 + 5}px`, 
-              height: `${Math.random() * 20 + 5}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 10}s`,
-              animationDuration: `${Math.random() * 10 + 15}s`,
-              backgroundColor: `rgba(46, 160, 67, ${Math.random() * 0.2})` // GitHub green particles
-            }}
-          ></div>
-        ))}
       </div>
       
       <div className="container px-6 mx-auto">
@@ -118,28 +101,35 @@ const SkillsSection = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <motion.div 
+            className="space-y-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
             {skillsData.map((category, index) => (
               <motion.div 
                 key={index} 
-                className="staggered-item"
+                className="bg-github-darker border border-github-border rounded-xl p-6 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-xl font-bold mb-4 text-white">
-                  {category.icon}
-                  <span className="ml-2">{category.name}</span>
+                <h3 className="text-xl font-bold mb-4 flex items-center text-white">
+                  <span className="p-2 rounded-md bg-github-accent/10 text-github-accent mr-3">
+                    {category.icon}
+                  </span>
+                  <span>{category.name}</span>
                 </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   {category.skills.map((skill, skillIndex) => (
                     <div 
                       key={skillIndex} 
-                      className="relative p-4 rounded-lg github-card flex items-center gap-3 transition-all hover:scale-105"
+                      className="p-4 rounded-lg bg-secondary/30 border border-github-border flex items-center gap-3 transition-all hover:bg-secondary/50"
                     >
-                      <div className="h-2 w-2 rounded-full bg-github-accent absolute top-2 right-2"></div>
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center ${skill.iconBg}`}>
                         {skill.icon}
                       </div>
@@ -149,7 +139,7 @@ const SkillsSection = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
           
           <motion.div 
             className="bg-github-darker border border-github-border p-6 rounded-xl shadow-lg"
