@@ -1,5 +1,6 @@
+
 import React, { useEffect, useRef } from 'react';
-import { Laptop2, Server2, Code2, Database, Terminal, GitBranch, Globe2 } from 'lucide-react';
+import { Laptop, Server, Code, Database, Terminal, GitBranch, Globe, BarChart, LineChart } from 'lucide-react';
 import SkillsChart from './SkillsChart';
 import { motion } from 'framer-motion';
 
@@ -7,17 +8,17 @@ const SkillsSection = () => {
   const skillsData = [
     {
       name: "Frontend Development",
-      icon: <Laptop2 className="h-5 w-5" />,
+      icon: <Laptop className="h-5 w-5" />,
       skills: [
-        { name: "React", icon: <Code2 className="h-4 w-4" />, iconBg: "bg-blue-100 text-blue-500" },
-        { name: "TypeScript", icon: <Code2 className="h-4 w-4" />, iconBg: "bg-blue-100 text-blue-500" },
-        { name: "Tailwind CSS", icon: <Code2 className="h-4 w-4" />, iconBg: "bg-teal-100 text-teal-500" },
-        { name: "Next.js", icon: <Code2 className="h-4 w-4" />, iconBg: "bg-gray-100 text-gray-500" },
+        { name: "React", icon: <Code className="h-4 w-4" />, iconBg: "bg-blue-100 text-blue-500" },
+        { name: "TypeScript", icon: <Code className="h-4 w-4" />, iconBg: "bg-blue-100 text-blue-500" },
+        { name: "Tailwind CSS", icon: <Code className="h-4 w-4" />, iconBg: "bg-teal-100 text-teal-500" },
+        { name: "Next.js", icon: <Code className="h-4 w-4" />, iconBg: "bg-gray-100 text-gray-500" },
       ],
     },
     {
       name: "Backend Development",
-      icon: <Server2 className="h-5 w-5" />,
+      icon: <Server className="h-5 w-5" />,
       skills: [
         { name: "Node.js", icon: <Terminal className="h-4 w-4" />, iconBg: "bg-green-100 text-green-500" },
         { name: "Express.js", icon: <Terminal className="h-4 w-4" />, iconBg: "bg-green-100 text-green-500" },
@@ -29,9 +30,9 @@ const SkillsSection = () => {
       name: "AI & Data Science",
       icon: <GitBranch className="h-5 w-5" />,
       skills: [
-        { name: "Python", icon: <Code2 className="h-4 w-4" />, iconBg: "bg-blue-100 text-blue-500" },
-        { name: "Pandas", icon: <PieChart className="h-4 w-4" />, iconBg: "bg-orange-100 text-orange-500" },
-        { name: "Streamlit", icon: <Globe2 className="h-4 w-4" />, iconBg: "bg-red-100 text-red-500" },
+        { name: "Python", icon: <Code className="h-4 w-4" />, iconBg: "bg-blue-100 text-blue-500" },
+        { name: "Pandas", icon: <BarChart className="h-4 w-4" />, iconBg: "bg-orange-100 text-orange-500" },
+        { name: "Streamlit", icon: <Globe className="h-4 w-4" />, iconBg: "bg-red-100 text-red-500" },
         { name: "Machine Learning", icon: <LineChart className="h-4 w-4" />, iconBg: "bg-purple-100 text-purple-500" },
       ],
     },

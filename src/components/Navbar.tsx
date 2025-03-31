@@ -1,129 +1,124 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Code, FileText, Menu } from 'lucide-react';
+
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Moon, Sun, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { useScroll } from '@/hooks/useScroll';
 import { ThemeToggle } from './ThemeToggle';
+import { useMobile } from '@/hooks/use-mobile';
 
 const navItems = [
-  {
-    label: 'Projects',
-    href: '#projects',
-  },
-  {
-    label: 'Skills',
-    href: '#skills',
-  },
-  {
-    label: 'Contact',
-    href: '#contact',
-  },
+  { name: 'Home', path: '/' },
+  { name: 'Projects', path: '/#projects' },
+  { name: 'Skills', path: '/#skills' },
+  { name: 'Contact', path: '/#contact' },
+  { name: 'Resume', path: '/resume' }
 ];
 
 const Navbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { scrollY, scrollDirection } = useScroll();
-  const [activeSection, setActiveSection] = useState('');
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const isMobile = useMobile();
+  const location = useLocation();
+  const navbarRef = useRef<HTMLDivElement>(null);
+  
+  // Handle scrolling
   useEffect(() => {
     const handleScroll = () => {
-      const sections = navItems.map(item => document.querySelector(item.href));
-      const visibleSections = sections.filter(section => section !== null).map((section, index) => ({
-        id: navItems[index].href.slice(1),
-        top: section!.offsetTop,
-      }));
-
-      let currentSection = '';
-      for (let i = visibleSections.length - 1; i >= 0; i--) {
-        if (scrollY >= visibleSections[i].top - 150) {
-          currentSection = visibleSections[i].id;
-          break;
-        }
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
       }
-
-      setActiveSection(currentSection);
     };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check on component mount
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [scrollY]);
+  // Handle mobile menu
+  const toggleMenu = () => setIsOpen(!isOpen);
   
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+  
+  // Close menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
+
   return (
-    <header className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
-      scrollY > 20 ? "bg-background/80 backdrop-blur-md border-github-border" : "bg-transparent border-transparent"
-    )}>
-      <div className="container flex items-center justify-between h-16 px-6 mx-auto">
-        <div className="flex items-center gap-2">
-          <Link to="/" className="text-lg font-bold flex items-center gap-2 text-github-accent">
-            <Code className="h-5 w-5" />
-            <span>Aziz Dhouib</span>
+    <header 
+      ref={navbarRef}
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        scrolled ? "bg-background/80 backdrop-blur-md shadow-md" : "bg-transparent"
+      )}
+    >
+      <div className="container mx-auto px-4 flex items-center justify-between h-16">
+        <div className="flex items-center">
+          <Link to="/" className="text-xl font-bold bg-gradient-to-r from-github-accent to-github-highlight bg-clip-text text-transparent">
+            SH.
           </Link>
         </div>
-
-        <nav className="hidden md:flex items-center gap-6">
+        
+        <nav className="hidden md:flex items-center space-x-1">
           {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
+            <Link
+              key={item.name}
+              to={item.path}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-github-accent animated-underline",
-                activeSection === item.href.slice(1) 
-                  ? "text-github-accent" 
-                  : "text-muted-foreground"
+                "px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                location.pathname === item.path || (item.path.includes('#') && location.pathname === '/' && location.hash === item.path.substring(1))
+                  ? "text-white bg-github-accent/20"
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
               )}
             >
-              {item.label}
-            </a>
+              {item.name}
+            </Link>
           ))}
-          
           <ThemeToggle />
-          
-          <Link to="/resume" className="inline-flex items-center gap-1 text-sm font-medium px-3 py-1.5 rounded-md border border-github-border bg-secondary/40 hover:bg-secondary/60 transition-colors">
-            <FileText className="h-3.5 w-3.5 mr-1.5" />
-            Resume
-          </Link>
         </nav>
         
-        <div className="md:hidden flex items-center gap-4">
+        <div className="flex md:hidden items-center">
           <ThemeToggle />
-          <Button variant="ghost" size="icon" onClick={toggleMobileMenu} className="relative">
-            <Menu className="h-5 w-5" />
+          <Button variant="ghost" size="icon" onClick={toggleMenu} className="ml-1">
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      <div className={cn(
-        "fixed top-16 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-b border-github-border transform transition-all duration-300 origin-top",
-        isMobileMenuOpen ? "scale-y-100" : "scale-y-0",
-        isMobileMenuOpen ? "visible" : "invisible"
-      )}>
-        <nav className="flex flex-col p-6 gap-4">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium transition-colors hover:text-github-accent"
-            >
-              {item.label}
-            </a>
-          ))}
-          <Link to="/resume" className="inline-flex items-center gap-1 text-sm font-medium px-3 py-1.5 rounded-md border border-github-border bg-secondary/40 hover:bg-secondary/60 transition-colors">
-            <FileText className="h-3.5 w-3.5 mr-1.5" />
-            Resume
-          </Link>
-        </nav>
-      </div>
+      
+      {/* Mobile menu */}
+      {isOpen && (
+        <div className="md:hidden">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-background/95 backdrop-blur-md border-t">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={cn(
+                  "block px-3 py-2 rounded-md text-base font-medium transition-colors",
+                  location.pathname === item.path || (item.path.includes('#') && location.pathname === '/' && location.hash === item.path.substring(1))
+                    ? "text-white bg-github-accent/20"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                )}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </header>
   );
 };
