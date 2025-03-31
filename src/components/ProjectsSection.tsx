@@ -195,7 +195,7 @@ const projects = [
     description: "A real-time financial analytics dashboard with AI-driven predictions and visualization tools.",
     detailedDescription: "This dashboard provides comprehensive stock market analytics through multiple visualization tools and predictive models. It integrates fundamental data, technical indicators, and sentiment analysis to offer a holistic view of investment opportunities and market trends.",
     tech: ["Streamlit", "Python", "Yahoo Finance API", "Power BI", "Pandas"],
-    imageSrc: "https://images.unsplash.com/photo-1611974789609-b2e70b53a5c4?q=80&w=2940&auto=format&fit=crop",
+    imageSrc: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2940&auto=format&fit=crop",
   }
 ];
 
