@@ -95,31 +95,21 @@ const SkillsSection = () => {
       
       <div className="container px-6 mx-auto">
         <div className="text-center mb-16">
-          <h2 className="section-title reveal-animation">Technical Skills</h2>
-          <p className="section-subtitle reveal-animation mx-auto">
+          <h2 className="section-title text-3xl font-bold mb-4">Technical Skills</h2>
+          <p className="section-subtitle text-muted-foreground max-w-2xl mx-auto">
             Programming languages and technologies I work with
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <motion.div 
-            className="space-y-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
+          <div className="space-y-8">
             {skillsData.map((category, index) => (
-              <motion.div 
+              <div 
                 key={index} 
-                className="bg-github-darker border border-github-border rounded-xl p-6 shadow-lg"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
+                className="staggered-item bg-card border border-border rounded-xl p-6 shadow-sm"
               >
-                <h3 className="text-xl font-bold mb-4 flex items-center text-white">
-                  <span className="p-2 rounded-md bg-github-accent/10 text-github-accent mr-3">
+                <h3 className="text-xl font-bold mb-4 flex items-center">
+                  <span className="p-2 rounded-md bg-primary/10 text-primary mr-3">
                     {category.icon}
                   </span>
                   <span>{category.name}</span>
@@ -128,7 +118,7 @@ const SkillsSection = () => {
                   {category.skills.map((skill, skillIndex) => (
                     <div 
                       key={skillIndex} 
-                      className="p-4 rounded-lg bg-secondary/30 border border-github-border flex items-center gap-3 transition-all hover:bg-secondary/50"
+                      className="p-4 rounded-lg bg-secondary/30 border border-border flex items-center gap-3 transition-all hover:bg-secondary/50"
                     >
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center ${skill.iconBg}`}>
                         {skill.icon}
@@ -137,20 +127,14 @@ const SkillsSection = () => {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
           
-          <motion.div 
-            className="bg-github-darker border border-github-border p-6 rounded-xl shadow-lg"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
+          <div className="bg-card border border-border p-6 rounded-xl shadow-sm">
             <h3 className="text-xl font-bold mb-6 text-center">Skills Proficiency</h3>
             <SkillsChart data={chartData} />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
