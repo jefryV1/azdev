@@ -1,104 +1,126 @@
-
 import React, { useState, useEffect } from 'react';
-import { cn } from '@/lib/utils';
-import { MenuIcon, XIcon, FileText } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { Code, FileText, Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { useScroll } from '@/hooks/useScroll';
+import { ThemeToggle } from './ThemeToggle';
 
-const navLinks = [
-  { name: 'Home', href: '#hero' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Contact', href: '#contact' }
+const navItems = [
+  {
+    label: 'Projects',
+    href: '#projects',
+  },
+  {
+    label: 'Skills',
+    href: '#skills',
+  },
+  {
+    label: 'Contact',
+    href: '#contact',
+  },
 ];
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { scrollY, scrollDirection } = useScroll();
+  const [activeSection, setActiveSection] = useState('');
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const sections = navItems.map(item => document.querySelector(item.href));
+      const visibleSections = sections.filter(section => section !== null).map((section, index) => ({
+        id: navItems[index].href.slice(1),
+        top: section!.offsetTop,
+      }));
+
+      let currentSection = '';
+      for (let i = visibleSections.length - 1; i >= 0; i--) {
+        if (scrollY >= visibleSections[i].top - 150) {
+          currentSection = visibleSections[i].id;
+          break;
+        }
+      }
+
+      setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    handleScroll(); // Initial check on component mount
 
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrollY]);
+  
   return (
-    <header
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300 backdrop-blur-md',
-        isScrolled ? 'bg-github-darker/90 border-b border-border shadow-sm' : 'bg-transparent'
-      )}
-    >
-      <div className="container mx-auto flex items-center justify-between">
-        <a href="#hero" className="font-bold text-2xl text-gradient">
-          Portfolio
-        </a>
+    <header className={cn(
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
+      scrollY > 20 ? "bg-background/80 backdrop-blur-md border-github-border" : "bg-transparent border-transparent"
+    )}>
+      <div className="container flex items-center justify-between h-16 px-6 mx-auto">
+        <div className="flex items-center gap-2">
+          <Link to="/" className="text-lg font-bold flex items-center gap-2 text-github-accent">
+            <Code className="h-5 w-5" />
+            <span>Aziz Dhouib</span>
+          </Link>
+        </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
+        <nav className="hidden md:flex items-center gap-6">
+          {navItems.map((item) => (
             <a
-              key={link.name}
-              href={link.href}
+              key={item.href}
+              href={item.href}
               className={cn(
-                'text-sm font-medium hover:text-github-accent transition-colors animated-underline',
-                isScrolled ? 'text-foreground' : 'text-foreground'
+                "text-sm font-medium transition-colors hover:text-github-accent animated-underline",
+                activeSection === item.href.slice(1) 
+                  ? "text-github-accent" 
+                  : "text-muted-foreground"
               )}
             >
-              {link.name}
+              {item.label}
             </a>
           ))}
-          <Link to="/resume">
-            <Button variant="outline" size="sm" className="gap-2">
-              <FileText className="h-4 w-4" />
-              Resume
-            </Button>
+          
+          <ThemeToggle />
+          
+          <Link to="/resume" className="inline-flex items-center gap-1 text-sm font-medium px-3 py-1.5 rounded-md border border-github-border bg-secondary/40 hover:bg-secondary/60 transition-colors">
+            <FileText className="h-3.5 w-3.5 mr-1.5" />
+            Resume
           </Link>
         </nav>
-
-        {/* Mobile Menu Button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden"
-          aria-label="Toggle Menu"
-        >
-          {mobileMenuOpen ? (
-            <XIcon className="h-6 w-6" />
-          ) : (
-            <MenuIcon className="h-6 w-6" />
-          )}
-        </Button>
+        
+        <div className="md:hidden flex items-center gap-4">
+          <ThemeToggle />
+          <Button variant="ghost" size="icon" onClick={toggleMobileMenu} className="relative">
+            <Menu className="h-5 w-5" />
+          </Button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={cn(
-          'md:hidden fixed inset-x-0 top-16 bg-github-darker/95 backdrop-blur-lg transition-all duration-300 ease-in-out shadow-md overflow-hidden border-b border-border',
-          mobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
-        )}
-      >
-        <nav className="flex flex-col space-y-4 p-6">
-          {navLinks.map((link) => (
+      <div className={cn(
+        "fixed top-16 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-b border-github-border transform transition-all duration-300 origin-top",
+        isMobileMenuOpen ? "scale-y-100" : "scale-y-0",
+        isMobileMenuOpen ? "visible" : "invisible"
+      )}>
+        <nav className="flex flex-col p-6 gap-4">
+          {navItems.map((item) => (
             <a
-              key={link.name}
-              href={link.href}
-              className="text-foreground font-medium py-2 hover:text-github-accent transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
+              key={item.href}
+              href={item.href}
+              className="text-sm font-medium transition-colors hover:text-github-accent"
             >
-              {link.name}
+              {item.label}
             </a>
           ))}
-          <Link 
-            to="/resume" 
-            className="text-foreground font-medium py-2 hover:text-github-accent transition-colors flex items-center gap-2"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <FileText className="h-4 w-4" /> Resume
+          <Link to="/resume" className="inline-flex items-center gap-1 text-sm font-medium px-3 py-1.5 rounded-md border border-github-border bg-secondary/40 hover:bg-secondary/60 transition-colors">
+            <FileText className="h-3.5 w-3.5 mr-1.5" />
+            Resume
           </Link>
         </nav>
       </div>

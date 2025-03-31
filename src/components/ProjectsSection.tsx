@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { 
@@ -22,6 +21,8 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import ProjectFilter from './ProjectFilter';
+import { motion } from 'framer-motion';
 
 interface ProjectCardProps {
   icon: React.ReactNode;
@@ -47,11 +48,16 @@ const ProjectCard = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={cn(
-      "staggered-item project-card overflow-hidden rounded-xl",
-      "transition-all duration-300", 
-      delay
-    )}>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={cn(
+        "staggered-item project-card overflow-hidden rounded-xl",
+        "transition-all duration-300", 
+        delay
+      )}
+    >
       <div className="image-card">
         <AspectRatio ratio={16/9}>
           <img 
@@ -138,7 +144,7 @@ const ProjectCard = ({
           </div>
         </CollapsibleContent>
       </Collapsible>
-    </div>
+    </motion.div>
   );
 };
 
@@ -195,12 +201,24 @@ const projects = [
     description: "A real-time financial analytics dashboard with AI-driven predictions and visualization tools.",
     detailedDescription: "This dashboard provides comprehensive stock market analytics through multiple visualization tools and predictive models. It integrates fundamental data, technical indicators, and sentiment analysis to offer a holistic view of investment opportunities and market trends.",
     tech: ["Streamlit", "Python", "Yahoo Finance API", "Power BI", "Pandas"],
-    imageSrc: "https://images.unsplash.com/photo-1611974789609-b2e70b53a5c4?q=80&w=2940&auto=format&fit=crop",
+    imageSrc: "https://images.unsplash.com/photo-1611974789609-b2e70b53a5c4?q=80&w=2940&auto=format&fit=crop"
   }
 ];
 
 const ProjectsSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [filteredProjects, setFilteredProjects] = useState(projects);
+  
+  const categories = Array.from(new Set(projects.map(project => project.category)));
+  
+  useEffect(() => {
+    if (activeCategory === 'all') {
+      setFilteredProjects(projects);
+    } else {
+      setFilteredProjects(projects.filter(project => project.category === activeCategory));
+    }
+  }, [activeCategory]);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -237,14 +255,20 @@ const ProjectsSection = () => {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="py-20 relative overflow-hidden">
-      {/* Background elements */}
+    <motion.section 
+      id="projects" 
+      ref={sectionRef} 
+      className="py-20 relative overflow-hidden"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+    >
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="fancy-blob w-96 h-96 bottom-0 left-0 bg-github-accent/5"></div>
         <div className="fancy-blob w-80 h-80 top-1/4 right-10 bg-github-highlight/5"></div>
         <div className="fancy-blob w-64 h-64 bottom-1/4 right-1/4 bg-github-accent/5"></div>
         
-        {/* Animated particles */}
         {[...Array(8)].map((_, i) => (
           <div 
             key={i}
@@ -256,22 +280,34 @@ const ProjectsSection = () => {
               left: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 10}s`,
               animationDuration: `${Math.random() * 10 + 15}s`,
-              backgroundColor: `rgba(46, 160, 67, ${Math.random() * 0.2})` // GitHub green particles
+              backgroundColor: `rgba(46, 160, 67, ${Math.random() * 0.2})`
             }}
           ></div>
         ))}
       </div>
       
       <div className="container px-6 mx-auto">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="section-title staggered-item text-gradient">Featured Projects</h2>
           <p className="section-subtitle staggered-item mx-auto">
             A selection of my recent work combining full-stack development and AI technologies
           </p>
-        </div>
+        </motion.div>
+        
+        <ProjectFilter 
+          categories={categories}
+          activeCategory={activeCategory}
+          onChange={setActiveCategory}
+        />
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-          {projects.map((project, index) => (
+          {filteredProjects.map((project, index) => (
             <ProjectCard 
               key={index} 
               {...project} 
@@ -280,7 +316,7 @@ const ProjectsSection = () => {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
