@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowRightIcon, GithubIcon, LinkedinIcon, TwitterIcon } from 'lucide-react';
+import { ArrowRightIcon } from 'lucide-react';
 import { toast } from "@/components/ui/use-toast";
 
 const Footer = () => {
@@ -35,18 +35,6 @@ const Footer = () => {
             <p className="text-muted-foreground text-sm max-w-xs">
               Specializing in full-stack AI-driven applications that combine elegant interfaces with powerful data science.
             </p>
-            
-            <div className="mt-6 flex space-x-4">
-              <a href="https://github.com" className="p-2 border border-primary/20 rounded-full bg-black hover:bg-primary/10 transition-colors duration-300 transform hover:scale-110">
-                <GithubIcon className="h-5 w-5 text-primary/80" />
-              </a>
-              <a href="https://twitter.com" className="p-2 border border-primary/20 rounded-full bg-black hover:bg-primary/10 transition-colors duration-300 transform hover:scale-110">
-                <TwitterIcon className="h-5 w-5 text-primary/80" />
-              </a>
-              <a href="https://linkedin.com" className="p-2 border border-primary/20 rounded-full bg-black hover:bg-primary/10 transition-colors duration-300 transform hover:scale-110">
-                <LinkedinIcon className="h-5 w-5 text-primary/80" />
-              </a>
-            </div>
           </div>
           
           <div>
