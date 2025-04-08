@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -63,15 +62,12 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				enhanced: {
-					dark: '#030014',
-					darker: '#010108',
-					accent: '#ff455d',
-					accent2: '#00ffff',
-					accent3: '#b56eff',
-					highlight: '#ff455d',
-					border: '#2a2a3f',
-					muted: '#171727'
+				github: {
+					dark: '#0d1117',
+					darker: '#010409',
+					border: '#30363d',
+					accent: '#2ea043', // GitHub green
+					highlight: '#388bfd'
 				}
 			},
 			fontFamily: {
@@ -121,20 +117,6 @@ export default {
 				'text-shimmer': {
 					'0%': { backgroundPosition: '0% 50%' },
 					'100%': { backgroundPosition: '100% 50%' }
-				},
-				glow: {
-					'0%, 100%': { opacity: 1 },
-					'50%': { opacity: 0.5 }
-				},
-				'glow-strong': {
-					'0%, 100%': { 
-						opacity: 1,
-						boxShadow: '0 0 20px rgba(255, 69, 93, 0.7), 0 0 30px rgba(255, 69, 93, 0.5), 0 0 40px rgba(255, 69, 93, 0.3)'
-					},
-					'50%': { 
-						opacity: 0.8,
-						boxShadow: '0 0 10px rgba(255, 69, 93, 0.5), 0 0 20px rgba(255, 69, 93, 0.3), 0 0 30px rgba(255, 69, 93, 0.2)'
-					}
 				}
 			},
 			animation: {
@@ -144,9 +126,7 @@ export default {
 				'fade-in-left': 'fade-in-left 0.7s ease-out forwards',
 				'fade-in-right': 'fade-in-right 0.7s ease-out forwards',
 				'float': 'float 3s ease-in-out infinite',
-				'shimmer': 'text-shimmer 3s ease infinite',
-				'glow': 'glow 3s ease-in-out infinite',
-				'glow-strong': 'glow-strong 3s ease-in-out infinite'
+				'shimmer': 'text-shimmer 3s ease infinite'
 			}
 		}
 	},
