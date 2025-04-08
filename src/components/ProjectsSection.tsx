@@ -8,7 +8,8 @@ import {
   LineChart, 
   Globe, 
   FileText, 
-  PieChart, 
+  PieChart,
+  Shield,
   ChevronUpIcon,
   ChevronDownIcon
 } from 'lucide-react';
@@ -143,6 +144,15 @@ const ProjectCard = ({
 };
 
 const projects = [
+  {
+    icon: <Shield className="h-6 w-6" />,
+    category: "AI & Speech Recognition",
+    title: "Debate Guardian",
+    description: "A real-time fact-checking platform to promote honesty and accountability in debates using AI and speech recognition.",
+    detailedDescription: "Debate Guardian captures spoken claims through speech recognition, automatically verifies them against a database of facts, and provides immediate feedback. It detects logical fallacies, assigns credibility scores, and offers visual analytics on debate patterns. The platform features adjustable tolerance settings, emotion analysis, and comprehensive speaker statistics, all powered by the Gemini API.",
+    tech: ["React", "TypeScript", "Google Cloud Speech-to-Text", "Gemini API", "Node.js", "Chart.js", "TensorFlow.js"],
+    imageSrc: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2940&auto=format&fit=crop",
+  },
   {
     icon: <Layers className="h-6 w-6" />,
     category: "Full-Stack Web App",

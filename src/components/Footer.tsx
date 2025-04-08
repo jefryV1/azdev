@@ -1,44 +1,109 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ArrowRightIcon, GithubIcon, LinkedinIcon, TwitterIcon } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState('');
+  
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle subscription logic here
+    setEmail('');
+    // Could add toast notification here
+  };
   
   return (
-    <footer className="py-12 border-t border-github-border bg-github-darker">
-      <div className="container px-6 mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+    <footer className="py-12 border-t border-primary/20 bg-black relative overflow-hidden">
+      {/* Glowing accent */}
+      <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-primary/5 blur-3xl"></div>
+      <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-primary/5 blur-3xl"></div>
+      
+      {/* Grid overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+      
+      <div className="container px-6 mx-auto relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
-            <h3 className="font-bold text-xl text-gradient mb-4">Portfolio</h3>
+            <h3 className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70 mb-4">Portfolio</h3>
             <p className="text-muted-foreground text-sm max-w-xs">
               Specializing in full-stack AI-driven applications that combine elegant interfaces with powerful data science.
             </p>
+            
+            <div className="mt-6 flex space-x-4">
+              <a href="https://github.com" className="p-2 border border-primary/20 rounded-full bg-black hover:bg-primary/10 transition-colors duration-300">
+                <GithubIcon className="h-5 w-5 text-primary/80" />
+              </a>
+              <a href="https://twitter.com" className="p-2 border border-primary/20 rounded-full bg-black hover:bg-primary/10 transition-colors duration-300">
+                <TwitterIcon className="h-5 w-5 text-primary/80" />
+              </a>
+              <a href="https://linkedin.com" className="p-2 border border-primary/20 rounded-full bg-black hover:bg-primary/10 transition-colors duration-300">
+                <LinkedinIcon className="h-5 w-5 text-primary/80" />
+              </a>
+            </div>
           </div>
           
           <div>
-            <h3 className="font-bold text-base mb-4">Quick Links</h3>
-            <nav className="flex flex-col space-y-2">
-              <a href="#hero" className="text-sm text-muted-foreground hover:text-github-accent transition-colors">
+            <h3 className="font-bold text-base bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80 mb-4">Quick Links</h3>
+            <nav className="flex flex-col space-y-3">
+              <a href="#hero" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300 flex items-center">
+                <span className="w-0 h-px bg-primary group-hover:w-3 transition-all duration-300 mr-2"></span>
                 Home
               </a>
-              <a href="#projects" className="text-sm text-muted-foreground hover:text-github-accent transition-colors">
+              <a href="#projects" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300 flex items-center">
+                <span className="w-0 h-px bg-primary group-hover:w-3 transition-all duration-300 mr-2"></span>
                 Projects
               </a>
-              <a href="#skills" className="text-sm text-muted-foreground hover:text-github-accent transition-colors">
+              <a href="#skills" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300 flex items-center">
+                <span className="w-0 h-px bg-primary group-hover:w-3 transition-all duration-300 mr-2"></span>
                 Skills
               </a>
-              <a href="#contact" className="text-sm text-muted-foreground hover:text-github-accent transition-colors">
+              <a href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300 flex items-center">
+                <span className="w-0 h-px bg-primary group-hover:w-3 transition-all duration-300 mr-2"></span>
                 Contact
               </a>
             </nav>
           </div>
+          
+          <div>
+            <h3 className="font-bold text-base bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80 mb-4">Stay Updated</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Subscribe to my newsletter for the latest updates on projects and tech insights.
+            </p>
+            
+            <form onSubmit={handleSubscribe} className="relative">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="bg-black/50 border-primary/20 focus:border-primary/50 pr-12 transition-colors"
+              />
+              <Button 
+                type="submit" 
+                size="icon"
+                className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 bg-primary/10 hover:bg-primary/20 border border-primary/20"
+              >
+                <ArrowRightIcon className="h-4 w-4 text-primary" />
+              </Button>
+            </form>
+          </div>
         </div>
         
-        <div className="mt-10 pt-6 border-t border-github-border flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-10 pt-6 border-t border-primary/20 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground mb-4 md:mb-0">
             © {currentYear} Portfolio. All rights reserved.
           </p>
+          
+          <div className="text-xs text-muted-foreground/60">
+            <span className="inline-block px-2 py-1 border border-primary/10 rounded-md bg-black/50">
+              v1.0.0
+            </span>
+          </div>
         </div>
       </div>
     </footer>
