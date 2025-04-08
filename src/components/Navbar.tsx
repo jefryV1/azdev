@@ -29,11 +29,11 @@ const Navbar = () => {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300 backdrop-blur-md',
-        isScrolled ? 'bg-github-darker/90 border-b border-border shadow-sm' : 'bg-transparent'
+        isScrolled ? 'bg-enhanced-darker/90 border-b border-enhanced-border shadow-sm' : 'bg-transparent'
       )}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <a href="#hero" className="font-bold text-2xl text-gradient">
+        <a href="#hero" className="font-bold text-2xl text-gradient enhanced-glow">
           Portfolio
         </a>
 
@@ -44,7 +44,7 @@ const Navbar = () => {
               key={link.name}
               href={link.href}
               className={cn(
-                'text-sm font-medium hover:text-github-accent transition-colors animated-underline',
+                'text-sm font-medium hover:text-enhanced-accent transition-colors animated-underline',
                 isScrolled ? 'text-foreground' : 'text-foreground'
               )}
             >
@@ -52,7 +52,7 @@ const Navbar = () => {
             </a>
           ))}
           <Link to="/resume">
-            <Button variant="outline" size="sm" className="gap-2">
+            <Button variant="outline" size="sm" className="gap-2 border-enhanced-accent text-enhanced-accent hover:bg-enhanced-accent/10">
               <FileText className="h-4 w-4" />
               Resume
             </Button>
@@ -64,7 +64,7 @@ const Navbar = () => {
           variant="ghost"
           size="icon"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden"
+          className="md:hidden text-enhanced-accent hover:bg-enhanced-accent/10"
           aria-label="Toggle Menu"
         >
           {mobileMenuOpen ? (
@@ -78,7 +78,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div
         className={cn(
-          'md:hidden fixed inset-x-0 top-16 bg-github-darker/95 backdrop-blur-lg transition-all duration-300 ease-in-out shadow-md overflow-hidden border-b border-border',
+          'md:hidden fixed inset-x-0 top-16 bg-enhanced-darker/95 backdrop-blur-lg transition-all duration-300 ease-in-out shadow-md overflow-hidden border-b border-enhanced-border',
           mobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
         )}
       >
@@ -87,7 +87,7 @@ const Navbar = () => {
             <a
               key={link.name}
               href={link.href}
-              className="text-foreground font-medium py-2 hover:text-github-accent transition-colors"
+              className="text-foreground font-medium py-2 hover:text-enhanced-accent transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               {link.name}
@@ -95,7 +95,7 @@ const Navbar = () => {
           ))}
           <Link 
             to="/resume" 
-            className="text-foreground font-medium py-2 hover:text-github-accent transition-colors flex items-center gap-2"
+            className="text-enhanced-accent font-medium py-2 hover:text-enhanced-accent/80 transition-colors flex items-center gap-2"
             onClick={() => setMobileMenuOpen(false)}
           >
             <FileText className="h-4 w-4" /> Resume

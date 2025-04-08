@@ -1,48 +1,49 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Dark GitHub theme colors with improved consistency */
-    --background: 220 13% 7%; /* github dark */
+    /* Enhanced Games inspired dark theme */
+    --background: 240 54% 5%; /* enhanced dark */
     --foreground: 210 40% 98%;
 
-    --card: 222 14% 10%;
+    --card: 240 50% 7%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222 14% 10%;
+    --popover: 240 50% 7%;
     --popover-foreground: 210 40% 98%;
 
-    /* Make primary color consistent with GitHub green */
-    --primary: 142 62% 47%; /* github green */
+    /* Enhanced Games inspired accent colors */
+    --primary: 350 100% 64%; /* enhanced accent (red) */
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 215 14% 16%;
+    --secondary: 240 50% 10%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 10% 23%;
+    --muted: 240 30% 15%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 142 62% 47%; /* github green */
+    --accent: 180 100% 50%; /* cyan accent */
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 13% 23%; /* github border */
-    --input: 220 13% 23%;
-    --ring: 142 62% 47%; /* github green */
+    --border: 240 30% 20%;
+    --input: 240 30% 20%;
+    --ring: 350 100% 64%; /* enhanced accent (red) */
 
     --radius: 0.5rem;
 
-    --sidebar-background: 210 9% 5%;
+    --sidebar-background: 240 54% 2%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 23%;
+    --sidebar-border: 240 30% 20%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
@@ -53,7 +54,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-enhanced-dark text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
@@ -77,11 +78,11 @@
 
 @layer components {
   .glass-card {
-    @apply bg-secondary/40 backdrop-blur-lg border border-border shadow-sm;
+    @apply bg-enhanced-muted/40 backdrop-blur-lg border border-enhanced-border shadow-sm;
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-github-accent to-github-accent/80 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-enhanced-accent via-enhanced-accent2 to-enhanced-accent3 bg-clip-text text-transparent;
   }
   
   .section-title {
@@ -118,7 +119,7 @@
   }
 
   .image-card {
-    @apply relative overflow-hidden rounded-t-xl shadow-lg transition-all border-t border-l border-r border-github-border bg-github-darker;
+    @apply relative overflow-hidden rounded-md shadow-lg transition-all border border-enhanced-border bg-enhanced-darker;
   }
   
   .image-card img {
@@ -142,12 +143,38 @@
   }
 
   .particle {
-    @apply absolute rounded-full bg-github-accent/20;
+    @apply absolute rounded-full;
     animation: particleFloat 20s infinite linear;
   }
   
   .github-card {
-    @apply rounded-lg border border-github-border bg-github-darker p-6 transition-all hover:border-github-accent/30;
+    @apply rounded-md border border-enhanced-border bg-enhanced-muted p-6 transition-all hover:border-enhanced-accent/30;
+  }
+
+  .enhanced-button {
+    @apply px-6 py-3 rounded-md font-medium relative overflow-hidden transition-all;
+    @apply bg-gradient-to-r from-enhanced-accent to-enhanced-accent3 hover:shadow-lg text-white;
+    @apply before:absolute before:inset-0 before:bg-white/10 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity;
+  }
+
+  .enhanced-button-outline {
+    @apply px-6 py-3 rounded-md font-medium relative overflow-hidden transition-all;
+    @apply bg-transparent border border-enhanced-accent text-enhanced-accent hover:shadow-lg;
+    @apply hover:bg-enhanced-accent/10;
+  }
+
+  .enhanced-card {
+    @apply border border-enhanced-border bg-enhanced-muted/50 rounded-md p-6 transition-all;
+    @apply hover:border-enhanced-accent/30 hover:shadow-md;
+  }
+
+  .enhanced-glow {
+    @apply animate-glow;
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  .enhanced-glow-strong {
+    @apply animate-glow-strong;
   }
 }
 
@@ -177,7 +204,7 @@ html {
   height: 2px;
   bottom: -2px;
   left: 0;
-  @apply bg-github-accent;
+  @apply bg-enhanced-accent;
   transition: width 0.3s ease;
 }
 
@@ -271,3 +298,4 @@ html {
   background-size: 200% 100%;
   animation: shimmer 3s infinite;
 }
+
