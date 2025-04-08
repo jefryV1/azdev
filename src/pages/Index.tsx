@@ -10,6 +10,7 @@ import Footer from '@/components/Footer';
 import { FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useScrollAnimation } from '@/hooks/useScroll';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 
 const Index = () => {
   useScrollAnimation();
@@ -31,11 +32,14 @@ const Index = () => {
             top: targetElement.getBoundingClientRect().top + window.scrollY - 80,
             behavior: 'smooth'
           });
+          
+          // Update URL without triggering a page reload
+          history.pushState(null, '', targetId);
         }
       }
     };
     
-    // Background particles animation
+    // Background particles animation with improved aesthetics
     const createBackgroundParticles = () => {
       const particlesContainer = document.createElement('div');
       particlesContainer.className = 'fixed inset-0 -z-20 overflow-hidden pointer-events-none';
@@ -70,16 +74,30 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background antialiased overflow-x-hidden">
+      {/* Grid overlay for depth */}
+      <div className="fixed inset-0 bg-[linear-gradient(rgba(0,0,0,0)_1.5px,transparent_1.5px),linear-gradient(90deg,rgba(0,0,0,0)_1.5px,transparent_1.5px)] bg-[size:30px_30px] opacity-[0.03] pointer-events-none -z-10"></div>
+      
       <Navbar />
       <HeroSection />
       
-      {/* Resume Button (visible on mobile/smaller screens) */}
+      {/* Enhanced Resume Button with hover effects and hover card */}
       <div className="container mx-auto px-6 my-8 flex justify-center md:hidden">
-        <Link to="/resume">
-          <Button className="w-full gap-2">
-            <FileText className="h-4 w-4" /> View My Resume
-          </Button>
-        </Link>
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <Link to="/resume">
+              <Button className="w-full gap-2 btn-glow bg-github-darker hover:bg-github-darker/80 transition-all duration-300 border border-primary/20 hover:border-primary/40">
+                <FileText className="h-4 w-4" /> View My Resume
+              </Button>
+            </Link>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-80 bg-github-darker border border-primary/20">
+            <div className="flex flex-col space-y-2">
+              <p className="text-sm text-muted-foreground">
+                View my professional experience, skills, and qualifications.
+              </p>
+            </div>
+          </HoverCardContent>
+        </HoverCard>
       </div>
       
       <ProjectsSection />
