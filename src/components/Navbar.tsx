@@ -33,26 +33,8 @@ const Navbar = () => {
       )}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <a href="#hero" className="font-bold flex items-center" aria-label="Home">
-          {/* Minimalist single letter logo */}
-          <div className="relative w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-github-accent to-github-highlight transition-all duration-300 hover:scale-110 shadow-md">
-            <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-white"
-            >
-              <path 
-                d="M12 4L8 20M12 4L16 20M12 4C14.2091 4 16 5.79086 16 8M12 4C9.79086 4 8 5.79086 8 8"
-                stroke="currentColor" 
-                strokeWidth="2.5" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
+        <a href="#hero" className="font-bold text-2xl text-gradient">
+          Portfolio
         </a>
 
         {/* Desktop Navigation */}
