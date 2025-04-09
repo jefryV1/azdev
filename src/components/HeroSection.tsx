@@ -37,13 +37,16 @@ const HeroSection = () => {
     <section
       id="hero"
       ref={heroRef}
-      className="min-h-screen flex flex-col justify-center pt-16 mb-10 relative overflow-hidden"
+      className="min-h-screen flex flex-col justify-center pt-16 mb-10 relative overflow-hidden fade-section"
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-github-accent/5 filter blur-3xl opacity-20 moving-gradient"></div>
         <div className="absolute top-1/2 -left-40 w-96 h-96 rounded-full bg-github-accent/5 filter blur-3xl opacity-20 moving-gradient"></div>
         <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-muted/10 filter blur-3xl opacity-10 moving-gradient"></div>
+        
+        {/* Enhanced Grid overlay with animation - similar to footer */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-60"></div>
         
         {/* Animated Tech Icons */}
         <div className="absolute top-1/4 left-1/4 floating-element animate-bounce-subtle">
@@ -90,8 +93,8 @@ const HeroSection = () => {
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-              <div className="flex items-start space-x-3">
-                <div className="p-2 rounded-md bg-github-accent/10 text-github-accent mt-1">
+              <div className="flex items-start space-x-3 fade-in" style={{ animationDelay: "0.1s" }}>
+                <div className="p-2 rounded-md bg-github-accent/10 text-github-accent mt-1 fade-border">
                   <BrainCircuit className="h-5 w-5" />
                 </div>
                 <div>
@@ -100,8 +103,8 @@ const HeroSection = () => {
                 </div>
               </div>
               
-              <div className="flex items-start space-x-3">
-                <div className="p-2 rounded-md bg-github-accent/10 text-github-accent mt-1">
+              <div className="flex items-start space-x-3 fade-in" style={{ animationDelay: "0.2s" }}>
+                <div className="p-2 rounded-md bg-github-accent/10 text-github-accent mt-1 fade-border">
                   <LineChart className="h-5 w-5" />
                 </div>
                 <div>
@@ -110,8 +113,8 @@ const HeroSection = () => {
                 </div>
               </div>
               
-              <div className="flex items-start space-x-3">
-                <div className="p-2 rounded-md bg-github-accent/10 text-github-accent mt-1">
+              <div className="flex items-start space-x-3 fade-in" style={{ animationDelay: "0.3s" }}>
+                <div className="p-2 rounded-md bg-github-accent/10 text-github-accent mt-1 fade-border">
                   <Database className="h-5 w-5" />
                 </div>
                 <div>
@@ -120,8 +123,8 @@ const HeroSection = () => {
                 </div>
               </div>
               
-              <div className="flex items-start space-x-3">
-                <div className="p-2 rounded-md bg-github-accent/10 text-github-accent mt-1">
+              <div className="flex items-start space-x-3 fade-in" style={{ animationDelay: "0.4s" }}>
+                <div className="p-2 rounded-md bg-github-accent/10 text-github-accent mt-1 fade-border">
                   <Terminal className="h-5 w-5" />
                 </div>
                 <div>
@@ -136,20 +139,22 @@ const HeroSection = () => {
             <a 
               href="#projects" 
               className={cn(
-                "inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-medium",
+                "inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-medium fade-in",
                 "bg-github-accent text-white hover:bg-github-accent/90 transition-all",
                 "shadow-lg shadow-github-accent/10 hover:shadow-xl hover:shadow-github-accent/20"
               )}
+              style={{ animationDelay: "0.5s" }}
             >
               View Projects
             </a>
             <a 
               href="#contact" 
               className={cn(
-                "inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-medium",
-                "bg-secondary text-foreground border hover:bg-secondary/80 transition-all",
+                "inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-medium fade-in fade-border",
+                "bg-secondary text-foreground hover:bg-secondary/80 transition-all",
                 "shadow-sm hover:shadow-md"
               )}
+              style={{ animationDelay: "0.6s" }}
             >
               Contact Me
             </a>
