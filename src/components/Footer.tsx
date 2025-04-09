@@ -3,20 +3,25 @@ import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowRightIcon } from 'lucide-react';
+import { ArrowRightIcon, PiggyBank } from 'lucide-react';
 import { toast } from "@/components/ui/use-toast";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
+  const [project, setProject] = useState('');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleInvestmentInterest = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "Newsletter subscription",
-      description: "Thank you for subscribing to our newsletter!",
+      title: "Investment Interest Received",
+      description: `Thank you for your interest in investing in "${project || 'our projects'}"!`,
     });
     setEmail('');
+    setProject('');
+    setIsDialogOpen(false);
   };
   
   return (
@@ -60,28 +65,59 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-bold text-base bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80 mb-4">Stay Updated</h3>
+            <h3 className="font-bold text-base bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80 mb-4">Project Investment</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Subscribe to my newsletter for the latest updates on projects and tech insights.
+              Interested in investing in one of my projects? Let me know which one caught your attention.
             </p>
             
-            <form onSubmit={handleSubscribe} className="relative">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="bg-black/50 border-primary/20 focus:border-primary/50 pr-12 transition-colors placeholder:text-muted-foreground/50"
-              />
-              <Button 
-                type="submit" 
-                size="icon"
-                className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 bg-primary/10 hover:bg-primary/20 border border-primary/20 transition-all duration-300"
-              >
-                <ArrowRightIcon className="h-4 w-4 text-primary" />
-              </Button>
-            </form>
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="w-full bg-primary/10 hover:bg-primary/20 border border-primary/20 text-primary transition-all duration-300">
+                  <PiggyBank className="h-4 w-4 mr-2" /> Invest in a Project
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="bg-github-darker border border-primary/20">
+                <DialogHeader>
+                  <DialogTitle className="text-white">Investment Interest</DialogTitle>
+                  <DialogDescription className="text-muted-foreground">
+                    Share your details and which project interests you.
+                  </DialogDescription>
+                </DialogHeader>
+                
+                <form onSubmit={handleInvestmentInterest} className="space-y-4 mt-4">
+                  <div className="space-y-2">
+                    <label htmlFor="project" className="text-sm text-muted-foreground">Which project interests you?</label>
+                    <Input
+                      id="project"
+                      placeholder="Project name (optional)"
+                      value={project}
+                      onChange={(e) => setProject(e.target.value)}
+                      className="bg-black/50 border-primary/20 focus:border-primary/50 transition-colors"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-sm text-muted-foreground">Your email</label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="bg-black/50 border-primary/20 focus:border-primary/50 transition-colors"
+                    />
+                  </div>
+                  
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-primary/20 hover:bg-primary/30 border border-primary/30 transition-all duration-300"
+                  >
+                    Submit Interest <ArrowRightIcon className="h-4 w-4 ml-2" />
+                  </Button>
+                </form>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
         
