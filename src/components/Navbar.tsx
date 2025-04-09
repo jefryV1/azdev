@@ -33,33 +33,26 @@ const Navbar = () => {
       )}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <a href="#hero" className="font-bold flex items-center">
-          <svg
-            width="120"
-            height="30"
-            viewBox="0 0 120 30"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="transition-all duration-300 hover:scale-105"
-          >
-            {/* Signature-like path for "Portfolio" */}
-            <path
-              d="M10 20c2-12 5-14 8-14 2 0 4 2 4 5 0 4-3 9-7 9-2 0-3-1-3-3 0-3 3-6 6-6 1 0 2 1 2 2M30 20c5-10 10-14 13-14 1 0 2 1 2 3 0 3-3 9-7 10M55 15c-3 5-5 7-7 7-1 0-2-1-2-3 0-3 2-8 6-8 2 0 3 1 3 3v1M65 18c0-4 3-10 8-10 2 0 3 1 3 4 0 4-3 10-8 10-2 0-3-1-3-4zM85 18c0-4 3-10 8-10 2 0 3 1 3 4 0 4-3 10-8 10-2 0-3-1-3-4zM100 20c2-12 5-14 8-14 2 0 4 2 4 5 0 4-3 9-7 9-2 0-3-1-3-3 0-3 3-6 6-6 1 0 2 1 2 2"
-              stroke="url(#gradient)"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-              className="text-gradient"
-            />
-            {/* Gradient definition */}
-            <defs>
-              <linearGradient id="gradient" x1="0" y1="0" x2="120" y2="30" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#2ea043" />
-                <stop offset="100%" stopColor="#1f6feb" />
-              </linearGradient>
-            </defs>
-          </svg>
+        <a href="#hero" className="font-bold flex items-center" aria-label="Home">
+          {/* Minimalist single letter logo */}
+          <div className="relative w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-github-accent to-github-highlight transition-all duration-300 hover:scale-110 shadow-md">
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-white"
+            >
+              <path 
+                d="M12 4L8 20M12 4L16 20M12 4C14.2091 4 16 5.79086 16 8M12 4C9.79086 4 8 5.79086 8 8"
+                stroke="currentColor" 
+                strokeWidth="2.5" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
         </a>
 
         {/* Desktop Navigation */}
