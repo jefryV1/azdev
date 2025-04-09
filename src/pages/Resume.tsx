@@ -111,25 +111,31 @@ const Resume = () => {
             
             <div className="space-y-4">
               <div>
-                <h4 className="font-medium">1️⃣ AI Business Analyzer (BI & Data Analytics Tool)</h4>
+                <h4 className="font-medium">1️⃣ Debate Guardian (AI & Speech Recognition Tool)</h4>
+                <p className="text-sm">A real-time fact-checking platform to promote honesty and accountability in debates using AI and speech recognition technology.</p>
+                <p className="text-sm text-muted-foreground"><span className="font-medium">Tech Stack:</span> React, TypeScript, Google Cloud Speech-to-Text, Gemini API, Node.js, Chart.js, TensorFlow.js</p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium">2️⃣ AI Business Analyzer (BI & Data Analytics Tool)</h4>
                 <p className="text-sm">Built a business intelligence platform that analyzes customer trends, financial performance, and risk factors.</p>
                 <p className="text-sm text-muted-foreground"><span className="font-medium">Tech Stack:</span> SQL, Looker, Python, PostgreSQL, Supabase, Power BI, Amplitude.</p>
               </div>
               
               <div>
-                <h4 className="font-medium">2️⃣ Data Cleaning & Visualization Tool (ETL & Reporting)</h4>
+                <h4 className="font-medium">3️⃣ Data Cleaning & Visualization Tool (ETL & Reporting)</h4>
                 <p className="text-sm">Developed an automated ETL pipeline and real-time anomaly detection dashboard for high-accuracy reporting.</p>
                 <p className="text-sm text-muted-foreground"><span className="font-medium">Tech Stack:</span> Python, SQL, Pandas, Seaborn, Power BI.</p>
               </div>
               
               <div>
-                <h4 className="font-medium">3️⃣ Ethical Checker for Social Media Influencers & Brands (Customer & Market Analysis)</h4>
+                <h4 className="font-medium">4️⃣ Ethical Checker for Social Media Influencers & Brands (Customer & Market Analysis)</h4>
                 <p className="text-sm">Created a BI tool to assess influencer credibility, analyzing engagement data and brand partnerships using AI models.</p>
                 <p className="text-sm text-muted-foreground"><span className="font-medium">Tech Stack:</span> SQL, Python, React, Supabase, Looker.</p>
               </div>
               
               <div>
-                <h4 className="font-medium">4️⃣ Market Analysis & Trading Assistant (Financial Analytics & User Insights)</h4>
+                <h4 className="font-medium">5️⃣ Market Analysis & Trading Assistant (Financial Analytics & User Insights)</h4>
                 <p className="text-sm">Designed an interactive trading dashboard tracking customer trading behaviors, stock trends, and AI-driven predictions.</p>
                 <p className="text-sm text-muted-foreground"><span className="font-medium">Tech Stack:</span> SQL, Python, Yahoo Finance API, Power BI, Tableau.</p>
               </div>

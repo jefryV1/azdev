@@ -49,12 +49,12 @@ const ProjectCard = ({
 
   return (
     <div className={cn(
-      "staggered-item project-card overflow-hidden rounded-xl",
+      "staggered-item project-card overflow-hidden rounded-xl h-full flex flex-col",
       "transition-all duration-300", 
       delay
     )}>
-      <div className="image-card">
-        <AspectRatio ratio={16/9}>
+      <div className="image-card flex-shrink-0">
+        <AspectRatio ratio={16/9} className="w-full">
           <img 
             src={imageSrc} 
             alt={title} 
@@ -85,9 +85,9 @@ const ProjectCard = ({
       <Collapsible
         open={isOpen}
         onOpenChange={setIsOpen}
-        className="bg-github-darker border border-github-border transition-all duration-300 overflow-hidden"
+        className="bg-github-darker border border-github-border transition-all duration-300 overflow-hidden flex-grow flex flex-col"
       >
-        <div className="p-6">
+        <div className="p-6 flex-grow">
           <div className="flex items-start justify-between mb-4">
             <div className="p-3 inline-block rounded-lg bg-github-accent/10 text-github-accent">
               {icon}

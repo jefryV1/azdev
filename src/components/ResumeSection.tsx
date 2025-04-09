@@ -8,7 +8,8 @@ import {
   GraduationCap, 
   Award, 
   Languages, 
-  ArrowRight
+  ArrowRight,
+  Shield
 } from 'lucide-react';
 import {
   Card,
@@ -168,6 +169,11 @@ const ResumeSection = () => {
   ];
 
   const projects = [
+    {
+      title: "Debate Guardian (AI & Speech Recognition Tool)",
+      description: "A real-time fact-checking platform to promote honesty and accountability in debates using AI and speech recognition.",
+      techStack: "React, TypeScript, Google Cloud Speech-to-Text, Gemini API, Node.js, Chart.js, TensorFlow.js"
+    },
     {
       title: "AI Business Analyzer (BI & Data Analytics Tool)",
       description: "Built a business intelligence platform that analyzes customer trends, financial performance, and risk factors.",
